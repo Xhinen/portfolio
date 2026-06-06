@@ -287,3 +287,8 @@ footer { border-top: 1px solid var(--border); padding: 2.2rem 2.5rem; }
 
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .reveal.vis { opacity: 1; transform: translateY(0); }
+@media(max-width: 480px) {
+  section { padding: 4rem 1.3rem; }
+  .hero { padding: 7rem 1.3rem 3rem; }
+  nav { padding: 1rem 1.3rem; }
+}

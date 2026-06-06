@@ -69,7 +69,35 @@ nav {
 }
 .nav-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 8px var(--ok); animation: pulse 1.6s infinite; }
 @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
-@media(max-width: 860px) { .nav-links, .nav-pill { display: none; } }
+.menu-toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 1.2rem;
+  width: 40px; height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+@media(max-width: 860px) {
+  .nav-pill { display: none; }
+  .menu-toggle { display: block; }
+
+  .nav-links {
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: rgba(11,15,14,0.97);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.5rem 0;
+    display: none;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { padding: 0.9rem 2.5rem; font-size: 0.95rem; }
+}
 
 /* HERO */
 .hero {

@@ -28,3 +28,14 @@ const obs = new IntersectionObserver((entries) => {
       document.getElementById('whSuccess').classList.add('show');
     }
   });
+const menuToggle = document.getElementById('menuToggle');
+const navLinks = document.querySelector('.nav-links');
+
+  menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+
+  // Cerrar el menú al pulsar un enlace
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });

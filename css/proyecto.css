@@ -1,0 +1,416 @@
+/* =========================================================
+   PORTFOLIO · Alberto Mira (xhinen)
+   Estilos específicos de las páginas de DETALLE de proyecto
+   (se carga DESPUÉS de styles.css)
+   ========================================================= */
+
+
+/* =========================================================
+   1. NAV de detalle (enlace de vuelta)
+   ========================================================= */
+
+.back-link {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: var(--ok);
+}
+
+
+/* =========================================================
+   2. CONTENEDOR Y CABECERA DEL PROYECTO
+   ========================================================= */
+
+.detail {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 8rem 2.5rem 4rem;
+}
+
+.detail-breadcrumb {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.detail-breadcrumb a {
+  color: var(--ok);
+  text-decoration: none;
+}
+
+.detail-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.detail-module {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--info);
+  margin-bottom: 0.6rem;
+}
+
+.detail-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  line-height: 1.05;
+  margin-bottom: 1rem;
+}
+
+.detail-lead {
+  font-size: 1.05rem;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+}
+
+.detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+/* Ficha de datos clave del proyecto (SO, IP, etc.) */
+.detail-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 2rem 0;
+}
+
+.fact {
+  background: var(--surface);
+  padding: 1rem 1.2rem;
+}
+
+.fact .k {
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+
+.fact .v {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--text);
+}
+
+
+/* =========================================================
+   3. SECCIONES DEL DESARROLLO
+   ========================================================= */
+
+.detail-section {
+  margin: 3rem 0;
+}
+
+.detail-section h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.detail-section h2::before {
+  content: attr(data-no);
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ok);
+}
+
+.detail-section h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 1.8rem 0 0.7rem;
+  color: var(--text);
+}
+
+.detail-section p {
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: 0.94rem;
+  margin-bottom: 1rem;
+}
+
+.detail-section strong {
+  color: var(--text);
+}
+
+.detail-section ul {
+  list-style: none;
+  margin: 1rem 0;
+}
+
+.detail-section li {
+  position: relative;
+  padding-left: 1.4rem;
+  margin-bottom: 0.6rem;
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 0.94rem;
+}
+
+.detail-section li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--ok);
+}
+
+
+/* =========================================================
+   4. BLOQUES DE CÓDIGO (estilo terminal)
+   ========================================================= */
+
+.code {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 1.2rem 0;
+}
+
+.code-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+}
+
+.code-bar .cdot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.cdot.r { background: #ff5f57; }
+.cdot.y { background: #febc2e; }
+.cdot.g { background: #28c840; }
+
+.code-title {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+.code-body {
+  margin: 0;
+  padding: 1.1rem 1.2rem;
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--text);
+  white-space: pre;
+}
+
+/* Coloreado dentro del código */
+.code-body .prompt  { color: var(--ok); }
+.code-body .comment { color: var(--muted); font-style: italic; }
+.code-body .key     { color: var(--info); }
+
+
+/* =========================================================
+   5. CAJA DE NOTA / APRENDIZAJE
+   ========================================================= */
+
+.callout {
+  display: flex;
+  gap: 0.9rem;
+  background: rgba(56, 189, 248, 0.05);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 10px;
+  padding: 1.1rem 1.3rem;
+  margin: 1.5rem 0;
+}
+
+.callout .ico {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.callout p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+
+/* =========================================================
+   6. TABLA DE INFORMACIÓN (usuarios, roles, servicios)
+   ========================================================= */
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.2rem 0;
+  font-size: 0.88rem;
+}
+
+.info-table th,
+.info-table td {
+  text-align: left;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--border);
+}
+
+.info-table th {
+  background: var(--surface2);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ok);
+  font-weight: 700;
+}
+
+.info-table td {
+  background: var(--surface);
+  color: var(--muted);
+}
+
+.info-table td:first-child {
+  color: var(--text);
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   7. DIAGRAMA DE ARQUITECTURA
+   ========================================================= */
+
+.arch {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 2rem 0;
+  background: var(--surface);
+}
+
+.arch-head {
+  padding: 0.8rem 1rem;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  color: var(--text);
+  text-align: center;
+}
+
+.arch-firewall {
+  padding: 1.3rem;
+}
+
+.arch-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--danger);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.arch-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.arch-row.small {
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 0;
+}
+
+.arch-box {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.8rem;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.arch-box span {
+  display: block;
+  font-size: 0.64rem;
+  font-weight: 400;
+  color: var(--muted);
+  margin-top: 0.3rem;
+}
+
+.arch-box.green { border-color: rgba(74, 222, 128, 0.4); }
+.arch-box.info  { border-color: rgba(56, 189, 248, 0.4); }
+.arch-box.amber { border-color: rgba(251, 191, 36, 0.4); }
+.arch-box.ghost { background: var(--surface2); }
+
+.arch-box.mini {
+  padding: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+@media (max-width: 600px) {
+  .arch-row,
+  .arch-row.small {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+/* =========================================================
+   8. NAVEGACIÓN ENTRE PROYECTOS (pie de la página)
+   ========================================================= */
+
+.detail-foot-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.detail-foot-nav a {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--ok);
+  text-decoration: none;
+}
+
+.detail-foot-nav a:hover {
+  text-decoration: underline;
+}
+
+.detail-foot-nav a.muted {
+  color: var(--muted);
+}

@@ -1,13 +1,12 @@
 /* =========================================================
    PORTFOLIO · Alberto Mira (xhinen)
-   JavaScript principal
+   JavaScript principal (válido para todas las páginas)
    ========================================================= */
 
 
 /* ---------------------------------------------------------
    1. Animación al hacer scroll (scroll reveal)
-   Añade la clase .vis a cada elemento .reveal cuando entra
-   en pantalla, disparando la transición definida en el CSS.
+   Añade .vis a los elementos .reveal cuando entran en pantalla.
    --------------------------------------------------------- */
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
@@ -22,24 +21,26 @@ document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
 /* ---------------------------------------------------------
    2. Menú hamburguesa (móvil / tablet)
-   Abre y cierra el menú desplegable, y lo cierra al pulsar
-   cualquiera de sus enlaces.
+   Solo se activa si existen los elementos en la página.
    --------------------------------------------------------- */
 const menuToggle = document.getElementById('menuToggle');
 const navLinks = document.getElementById('navLinks');
 
-menuToggle.addEventListener('click', () => {
-  navLinks.classList.toggle('open');
-});
+if (menuToggle && navLinks) {
+  menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
 
-// Cerrar el menú al elegir una sección
-navLinks.querySelectorAll('a').forEach((enlace) => {
-  enlace.addEventListener('click', () => navLinks.classList.remove('open'));
-});
+  // Cerrar el menú al elegir una sección
+  navLinks.querySelectorAll('a').forEach((enlace) => {
+    enlace.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+}
 
 
 /* ---------------------------------------------------------
    3. Validación del formulario de contacto (DOM)
+   Solo se ejecuta si el formulario existe en la página.
    --------------------------------------------------------- */
 
 // Comprueba que el email tenga un formato básico válido
@@ -49,44 +50,46 @@ function validarEmail(valor) {
 
 const formulario = document.getElementById('whForm');
 
-formulario.addEventListener('submit', function (e) {
-  e.preventDefault();
+if (formulario) {
+  formulario.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-  let valido = true;
+    let valido = true;
 
-  const nombre = document.getElementById('nombre');
-  const email = document.getElementById('email');
-  const mensaje = document.getElementById('mensaje');
+    const nombre = document.getElementById('nombre');
+    const email = document.getElementById('email');
+    const mensaje = document.getElementById('mensaje');
 
-  // Marca/desmarca un campo como erróneo y muestra su mensaje
-  function marcar(campo, idError, esErroneo) {
-    const error = document.getElementById(idError);
+    // Marca/desmarca un campo como erróneo y muestra su mensaje
+    function marcar(campo, idError, esErroneo) {
+      const error = document.getElementById(idError);
 
-    if (esErroneo) {
-      campo.classList.add('err');
-      error.classList.add('show');
-    } else {
-      campo.classList.remove('err');
-      error.classList.remove('show');
+      if (esErroneo) {
+        campo.classList.add('err');
+        error.classList.add('show');
+      } else {
+        campo.classList.remove('err');
+        error.classList.remove('show');
+      }
+
+      return esErroneo;
     }
 
-    return esErroneo;
-  }
+    // Reglas de validación
+    if (marcar(nombre, 'err-nombre', nombre.value.trim().length < 2)) {
+      valido = false;
+    }
+    if (marcar(email, 'err-email', !validarEmail(email.value.trim()))) {
+      valido = false;
+    }
+    if (marcar(mensaje, 'err-mensaje', mensaje.value.trim().length < 10)) {
+      valido = false;
+    }
 
-  // Reglas de validación
-  if (marcar(nombre, 'err-nombre', nombre.value.trim().length < 2)) {
-    valido = false;
-  }
-  if (marcar(email, 'err-email', !validarEmail(email.value.trim()))) {
-    valido = false;
-  }
-  if (marcar(mensaje, 'err-mensaje', mensaje.value.trim().length < 10)) {
-    valido = false;
-  }
-
-  // Si todo es correcto, ocultamos el formulario y mostramos el éxito
-  if (valido) {
-    formulario.style.display = 'none';
-    document.getElementById('whSuccess').classList.add('show');
-  }
-});
+    // Si todo es correcto, ocultamos el formulario y mostramos el éxito
+    if (valido) {
+      formulario.style.display = 'none';
+      document.getElementById('whSuccess').classList.add('show');
+    }
+  });
+}

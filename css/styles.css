@@ -783,6 +783,28 @@ section {
   border-radius: 4px;
 }
 
+/* Enlace "ver proyecto →" dentro de la tarjeta */
+.deploy-link {
+  display: inline-block;
+  margin-top: 1rem;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--ok);
+  text-decoration: none;
+  transition: gap 0.2s, opacity 0.2s;
+}
+
+.deploy-link:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.deploy-link.disabled {
+  color: var(--muted);
+  pointer-events: none;
+}
+
 
 /* =========================================================
    10. FORMACIÓN

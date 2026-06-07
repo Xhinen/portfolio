@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>capsulecorp-server — Servidor Linux empresarial · Alberto Mira</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Estilos: base + detalle -->
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/proyecto.css" />
+</head>
+<body id="top">
+
+  <div class="bg-fixed"></div>
+  <div class="bg-grid"></div>
+
+  <!-- ====================== NAV ====================== -->
+  <nav>
+    <a href="../index.html" class="logo">
+      <span class="logo-mark">&gt;_</span>
+      <span class="logo-text">alberto<span class="dim">@devops</span></span>
+    </a>
+    <a href="../index.html#projects" class="back-link">← volver a proyectos</a>
+  </nav>
+
+  <!-- ====================== CONTENIDO ====================== -->
+  <main class="detail">
+
+    <!-- Cabecera -->
+    <div class="detail-breadcrumb">
+      <a href="../index.html">~/inicio</a> / <a href="../index.html#projects">proyectos</a> / capsulecorp-server
+    </div>
+
+    <p class="detail-module">// ASO · Administración avanzada de sistemas</p>
+    <h1 class="detail-title">Servidor Linux empresarial</h1>
+
+    <div class="detail-meta">
+      <span class="deploy-badge ok">● completado</span>
+      <span class="dtag">Ubuntu Server</span>
+      <span class="dtag">Bash</span>
+      <span class="dtag">SSH</span>
+      <span class="dtag">Apache</span>
+      <span class="dtag">MariaDB</span>
+      <span class="dtag">UFW</span>
+      <span class="dtag">Fail2ban</span>
+    </div>
+
+    <p class="detail-lead">Despliegue y administración de un servidor <strong>Ubuntu Server 24.04</strong> para una empresa simulada (Capsulecorp): gestión de usuarios por roles, servicios de red, automatización con scripts y una capa de seguridad (hardening) de principio a fin.</p>
+
+    <!-- Ficha de datos -->
+    <div class="detail-facts">
+      <div class="fact"><div class="k">Sistema</div><div class="v">Ubuntu Server 24.04 LTS</div></div>
+      <div class="fact"><div class="k">Hostname</div><div class="v">servidor-capsulecorp</div></div>
+      <div class="fact"><div class="k">Entorno</div><div class="v">Máquina virtual (KVM)</div></div>
+      <div class="fact"><div class="k">Módulo</div><div class="v">ASO · 2º ASIR</div></div>
+    </div>
+
+    <!-- Arquitectura -->
+    <section class="detail-section reveal">
+      <h2 data-no="//">Arquitectura del entorno</h2>
+      <p>El servidor concentra los servicios de la empresa detrás de un firewall, con los usuarios organizados en tres grupos por rol y una capa de automatización y seguridad por encima.</p>
+
+      <div class="arch">
+        <div class="arch-head">servidor-capsulecorp · Ubuntu 24.04 LTS · 192.168.122.233</div>
+        <div class="arch-firewall">
+          <span class="arch-label">⊘ UFW · deny incoming / allow outgoing</span>
+
+          <div class="arch-row">
+            <div class="arch-box green">SSH<span>2222/tcp</span></div>
+            <div class="arch-box info">Apache2<span>80 · 443</span></div>
+            <div class="arch-box amber">MariaDB<span>solo localhost</span></div>
+          </div>
+
+          <div class="arch-row">
+            <div class="arch-box ghost">Administradores<span>admin1..4 · sudo</span></div>
+            <div class="arch-box ghost">Desarrolladores<span>dev1..4 · rwx</span></div>
+            <div class="arch-box ghost">Soporte<span>supp1..4 · lectura</span></div>
+          </div>
+
+          <div class="arch-row small">
+            <div class="arch-box mini">Cron</div>
+            <div class="arch-box mini">Fail2ban</div>
+            <div class="arch-box mini">Zero Trust</div>
+            <div class="arch-box mini">ACL</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Objetivos -->
+    <section class="detail-section reveal">
+      <h2 data-no="//">Objetivos</h2>
+      <ul>
+        <li>Segmentar el acceso de los usuarios por <strong>roles</strong> (administradores, desarrolladores y soporte).</li>
+        <li>Desplegar y configurar los servicios clave: <strong>SSH, Apache2 y MariaDB</strong>.</li>
+        <li><strong>Automatizar</strong> tareas repetitivas (altas de usuarios, backups y monitorización) con scripts y cron.</li>
+        <li>Aplicar <strong>hardening</strong> siguiendo el principio de mínimo privilegio.</li>
+      </ul>
+    </section>
+
+    <!-- 1. Usuarios y ACL -->
+    <section class="detail-section reveal">
+      <h2 data-no="01">Usuarios, grupos y permisos ACL</h2>
+      <p>Cada departamento tiene su propio grupo. Los usuarios se crean con su directorio <em>home</em> y su shell, y se asignan al grupo que les corresponde:</p>
+
+      <table class="info-table">
+        <thead>
+          <tr><th>Grupo</th><th>Usuarios</th><th>Rol</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>administradores</td><td>admin1..4</td><td>Diseño y mantenimiento de la infraestructura</td></tr>
+          <tr><td>desarrolladores</td><td>dev1..4</td><td>Construyen y mantienen las aplicaciones</td></tr>
+          <tr><td>soporte</td><td>supp1..4</td><td>Resuelven incidencias (acceso de lectura)</td></tr>
+        </tbody>
+      </table>
+
+      <div class="code">
+        <div class="code-bar"><span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span><span class="code-title">bash</span></div>
+<pre class="code-body"><span class="prompt">$</span> sudo groupadd administradores
+<span class="prompt">$</span> sudo groupadd desarrolladores
+<span class="prompt">$</span> sudo groupadd soporte
+
+<span class="comment"># Crear usuario con home (-m) y shell (-s), asignado a su grupo (-G)</span>
+<span class="prompt">$</span> sudo useradd -m -s /bin/bash -G administradores admin1
+
+<span class="comment"># Listar todos los grupos y sus usuarios de un vistazo</span>
+<span class="prompt">$</span> getent group | awk -F: '$4 != "" {print "["$1"] -> "$4}'</pre>
+      </div>
+
+      <h3>Permisos avanzados con ACL</h3>
+      <p>El sistema solo permite un usuario y un grupo propietario. Para un escenario realista en el que <strong>dev1</strong> y el grupo <strong>soporte</strong> también necesitan acceso al directorio compartido, se usan ACL (Access Control List):</p>
+
+      <div class="code">
+        <div class="code-bar"><span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span><span class="code-title">bash</span></div>
+<pre class="code-body"><span class="prompt">$</span> sudo mkdir /srv/capsulecorp
+<span class="prompt">$</span> sudo chown root:desarrolladores /srv/capsulecorp
+<span class="prompt">$</span> sudo chmod 770 /srv/capsulecorp
+
+<span class="comment"># Permisos extra para un usuario y un grupo concretos</span>
+<span class="prompt">$</span> sudo setfacl -m u:dev1:rwx /srv/capsulecorp
+<span class="prompt">$</span> sudo setfacl -m g:soporte:r-x /srv/capsulecorp
+
+<span class="comment"># ACL por defecto: se hereda en los ficheros nuevos del directorio</span>
+<span class="prompt">$</span> sudo setfacl -d -m g:desarrolladores:rwx /srv/capsulecorp</pre>
+      </div>
+
+      <p>Además se reforzó la gestión de cuentas bloqueando usuarios (<strong>usermod -L</strong>) y estableciendo caducidad de contraseña (<strong>chage -M 90</strong>).</p>
+    </section>
+
+    <!-- 2. Servicios -->
+    <section class="detail-section reveal">
+      <h2 data-no="02">Servicios del sistema</h2>
+
+      <h3>SSH securizado</h3>
+      <p>El servicio SSH se endurece cambiando el puerto por defecto, deshabilitando el acceso de root, limitando los intentos y restringiendo qué usuarios pueden conectarse:</p>
+
+      <div class="code">
+        <div class="code-bar"><span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span><span class="code-title">/etc/ssh/sshd_config</span></div>
+<pre class="code-body"><span class="key">Port</span> 2222
+<span class="key">PermitRootLogin</span> no
+<span class="key">PasswordAuthentication</span> yes
+<span class="key">MaxAuthTries</span> 3
+<span class="key">AllowUsers</span> admin1 dev1
+<span class="key">Banner</span> /etc/ssh/banner.txt</pre>
+      </div>
+
+      <h3>Servidor web Apache2</h3>
+      <p>Se crea un VirtualHost propio para servir la web de la empresa (la tienda <strong>TechShop</strong> del módulo de aplicaciones web se aloja precisamente aquí):</p>
+
+      <div class="code">
+        <div class="code-bar"><span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span><span class="code-title">/etc/apache2/sites-available/capsulecorp.conf</span></div>
+<pre class="code-body"><span class="key">&lt;VirtualHost *:80&gt;</span>
+    ServerName capsulecorp.local
+    DocumentRoot /var/www/capsulecorp
+    ErrorLog ${APACHE_LOG_DIR}/capsulecorp_error.log
+    CustomLog ${APACHE_LOG_DIR}/capsulecorp_access.log combined
+<span class="key">&lt;/VirtualHost&gt;</span></pre>
+      </div>
+
+      <h3>Base de datos MariaDB</h3>
+      <p>Tras instalar MariaDB se ejecuta <strong>mysql_secure_installation</strong> para eliminar usuarios anónimos, deshabilitar el login remoto de root y borrar la base de datos de prueba. Después se crea una base de datos con su usuario y privilegios acotados.</p>
+    </section>
+
+    <!-- 3. Automatización -->
+    <section class="detail-section reveal">
+      <h2 data-no="03">Automatización con scripts y cron</h2>
+      <p>Tres scripts en Bash cubren las tareas repetitivas del servidor, todos protegidos para que <strong>solo los administradores</strong> puedan ejecutarlos:</p>
+      <ul>
+        <li><strong>gestion_usuarios.sh</strong> — menú interactivo para crear, eliminar y listar usuarios, con validación del grupo.</li>
+        <li><strong>backup_sistema.sh</strong> — empaqueta <code>/srv</code>, <code>/etc/apache2</code> y <code>/etc/ssh</code> en un <em>.tar.gz</em> con fecha y limpia los backups de más de 7 días.</li>
+        <li><strong>monitorizacion_sistema.sh</strong> — actualiza paquetes, limpia caché y temporales, y deja un informe en <code>/var/log</code>.</li>
+      </ul>
+
+      <p>Los dos últimos se programan en cron para que se ejecuten solos:</p>
+
+      <div class="code">
+        <div class="code-bar"><span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span><span class="code-title">crontab -e</span></div>
+<pre class="code-body"><span class="comment"># Copia de seguridad diaria a las 3:00</span>
+0 2 * * * /usr/local/sbin/backup_sistema.sh
+
+<span class="comment"># Mantenimiento semanal (domingos a las 23:00)</span>
+0 23 * * 7 /usr/local/sbin/mantenimiento_sistema.sh</pre>
+      </div>
+    </section>
+
+    <!-- 4. Hardening -->
+    <section class="detail-section reveal">
+      <h2 data-no="04">Seguridad y hardening</h2>
+      <p>La capa de seguridad combina varias técnicas: shells deshabilitadas para usuarios de servicio, permisos correctos en la web, auditoría de binarios con SUID y un firewall con política restrictiva.</p>
+
+      <div class="code">
+        <div class="code-bar"><span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span><span class="code-title">UFW · firewall</span></div>
+<pre class="code-body"><span class="prompt">$</span> sudo ufw default deny incoming
+<span class="prompt">$</span> sudo ufw default allow outgoing
+<span class="prompt">$</span> sudo ufw allow 2222/tcp comment 'SSH'
+<span class="prompt">$</span> sudo ufw allow 80/tcp   comment 'HTTP'
+<span class="prompt">$</span> sudo ufw allow 443/tcp  comment 'HTTPS'
+<span class="prompt">$</span> sudo ufw enable
+
+<span class="comment"># Auditar binarios con bit SUID cada cierto tiempo</span>
+<span class="prompt">$</span> find / -perm /4000 -type f 2&gt;/dev/null</pre>
+      </div>
+
+      <h3>Extra: sudo Zero Trust + Fail2ban</h3>
+      <p>Como capa adicional (aprovechando la formación en ciberseguridad), se aplica una política <strong>Zero Trust</strong> sobre <code>sudo</code> usando ficheros modulares en <code>/etc/sudoers.d/</code>: se pide contraseña siempre, se graban las sesiones y cada rol solo puede ejecutar sus comandos.</p>
+
+      <div class="code">
+        <div class="code-bar"><span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span><span class="code-title">/etc/sudoers.d/01-defaults-zerotrust</span></div>
+<pre class="code-body"><span class="key">Defaults</span>    env_reset
+<span class="key">Defaults</span>    timestamp_timeout=0      <span class="comment"># pedir contraseña siempre</span>
+<span class="key">Defaults</span>    passwd_tries=3
+<span class="key">Defaults</span>    requiretty
+<span class="key">Defaults</span>    logfile="/var/log/sudo.log"
+<span class="key">Defaults</span>    log_input, log_output    <span class="comment"># grabar sesiones (auditoría)</span></pre>
+      </div>
+
+      <p>Y <strong>Fail2ban</strong> protege el SSH baneando las IP que fallan al autenticarse:</p>
+
+      <div class="code">
+        <div class="code-bar"><span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span><span class="code-title">/etc/fail2ban/jail.local</span></div>
+<pre class="code-body"><span class="key">[sshd]</span>
+enable   = true
+port     = 2222
+maxretry = 3
+bantime  = 86400
+findtime = 86400
+backend  = systemd</pre>
+      </div>
+    </section>
+
+    <!-- Retos -->
+    <section class="detail-section reveal">
+      <h2 data-no="//">Retos y aprendizajes</h2>
+      <div class="callout">
+        <span class="ico">💡</span>
+        <p>Tras cambiar el puerto de SSH a 2222, el servicio no aceptaba conexiones aunque lo reiniciara. La solución fue <strong>reiniciar el servidor</strong> por completo: a veces el cambio de puerto no se aplica solo con <code>systemctl restart ssh</code>. Un recordatorio de comprobar siempre el estado real del servicio antes de dar algo por hecho.</p>
+      </div>
+    </section>
+
+    <!-- Conclusión -->
+    <section class="detail-section reveal">
+      <h2 data-no="//">Conclusión</h2>
+      <p>Un proyecto muy completo que abarca el ciclo de vida de un servidor real: desde la instalación y la gestión de usuarios hasta la automatización y el hardening. Me sirvió para entender por qué la administración de sistemas es tan estricta con los permisos y la seguridad, y es la base sobre la que quiero construir mi perfil DevOps.</p>
+    </section>
+
+    <!-- Navegación entre proyectos -->
+    <div class="detail-foot-nav">
+      <a href="../index.html#projects">← Todos los proyectos</a>
+      <a href="#" class="muted">Siguiente: MariaDB (próximamente)</a>
+    </div>
+
+  </main>
+
+  <!-- Script (con guardas, seguro en cualquier página) -->
+  <script src="../js/index.js"></script>
+</body>
+</html>

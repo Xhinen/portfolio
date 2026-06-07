@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mariadb-capsulecorp — Administración avanzada de MariaDB · Alberto Mira</title>
+
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/proyecto.css" />
+</head>
+<body id="top">
+
+  <div class="bg-fixed"></div>
+  <div class="bg-grid"></div>
+
+  <nav>
+    <a href="../index.html" class="logo">
+      <span class="logo-mark">&gt;_</span>
+      <span class="logo-text">alberto<span class="dim">@devops</span></span>
+    </a>
+    <a href="../index.html#projects" class="back-link">← volver a proyectos</a>
+  </nav>
+
+  <main class="detail">
+
+    <div class="detail-breadcrumb">
+      <a href="../index.html">~/inicio</a> / <a href="../index.html#projects">proyectos</a> / mariadb-capsulecorp
+    </div>
+
+    <p class="detail-module">// ASGBD · Administración de bases de datos</p>
+    <h1 class="detail-title">Administración avanzada de MariaDB</h1>
+
+    <div class="detail-meta">
+      <span class="deploy-badge ok">● completado</span>
+      <span class="dtag">MariaDB</span>
+      <span class="dtag">SQL</span>
+      <span class="dtag">RBAC</span>
+      <span class="dtag">Triggers</span>
+      <span class="dtag">DBeaver</span>
+    </div>
+
+    <p class="detail-lead">Diseño e implementación de una base de datos relacional para la empresa Capsulecorp sobre <strong>MariaDB</strong>: modelo de datos, seguridad basada en roles, copias de seguridad automatizadas, optimización de consultas y automatización con triggers, procedimientos y funciones.</p>
+
+    <div class="detail-facts">
+      <div class="fact"><div class="k">Motor</div><div class="v">MariaDB 10.11 · InnoDB</div></div>
+      <div class="fact"><div class="k">Servidor</div><div class="v">Ubuntu Server (VM)</div></div>
+      <div class="fact"><div class="k">Cliente</div><div class="v">DBeaver (remoto)</div></div>
+      <div class="fact"><div class="k">Tablas</div><div class="v">6 + integridad referencial</div></div>
+    </div>
+
+    <!-- Objetivos -->
+    <section class="detail-section reveal">
+      <h2 data-no="//">Objetivos</h2>
+      <ul>
+        <li>Diseñar un <strong>modelo relacional</strong> coherente con claves foráneas e integridad referencial.</li>
+        <li>Aplicar <strong>seguridad basada en roles (RBAC)</strong> con el principio de mínimo privilegio.</li>
+        <li>Garantizar la recuperación de datos con <strong>backups automatizados</strong>.</li>
+        <li>Optimizar el rendimiento con <strong>índices</strong> y automatizar la lógica con <strong>triggers, procedimientos y funciones</strong>.</li>
+      </ul>
+    </section>
+
+    <!-- 1. Instalación -->
+    <section class="detail-section reveal">
+      <h2 data-no="01">Instalación y configuración</h2>
+      <p>Tras instalar MariaDB se ejecuta <strong>mysql_secure_installation</strong> (eliminar usuarios anónimos, bloquear root remoto, borrar la BD de prueba). La configuración del servidor se afina en su fichero principal:</p>
+
+      <div class="code">
+        <div class="code-bar"><span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span><span class="code-title">/etc/mysql/mariadb.conf.d/50-server.cnf</span></div>
+<pre class="code-body"><span class="key">[mysqld]</span>
+bind-address           = 127.0.0.1   <span class="comment"># escuchar solo en local</span>
+character-set-server   = utf8mb4      <span class="comment"># Unicode completo (4 bytes)</span>
+collation-server       = utf8mb4_spanish_ci
+default-storage-engine = InnoDB
+innodb_buffer_pool_size = 1G
+slow_query_log         = 1            <span class="comment"># registrar consultas lentas</span>
+long_query_time        = 2</pre>
+      </div>
+    </section>
+
+    <!-- 2. Modelo de datos -->
+    <section class="detail-section reveal">
+      <h2 data-no="02">Modelo de datos</h2>
+      <p>La base de datos se compone de 6 tablas que cubren las necesidades de la empresa:</p>
+
+      <table class="info-table">
+        <thead>
+          <tr><th>Tabla</th><th>Descripción</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>departamentos</td><td>Departamentos de la empresa</td></tr>
+          <tr><td>empleados</td><td>Datos de los empleados (FK a departamento)</td></tr>
+          <tr><td>proyectos</td><td>Proyectos gestionados por cada departamento</td></tr>
+          <tr><td>asignaciones</td><td>Relación N:M entre empleados y proyectos</td></tr>
+          <tr><td>gastos</td><td>Gastos asociados a cada proyecto</td></tr>
+          <tr><td>auditoria</td><td>Registro automático de cambios (triggers)</td></tr>
+        </tbody>
+      </table>
+
+      <p>Relaciones principales: <strong>departamentos → empleados</strong> (1:N), <strong>departamentos → proyectos</strong> (1:N), <strong>empleados ↔ proyectos</strong> (N:M vía <em>asignaciones</em>) y <strong>proyectos → gastos</strong> (1:N). La base de datos usa <code>utf8mb4</code> e InnoDB para soportar transacciones y claves foráneas.</p>
+
+      <div class="code">
+        <div class="code-bar"><span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span><span class="code-title">SQL</span></div>
+<pre class="code-body">CREATE DATABASE capsulecorp
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_spanish_ci;</pre>
+      </div>
+    </section>
+
+    <!-- 3. Roles -->
+    <section class="detail-section reveal">
+      <h2 data-no="03">Seguridad basada en roles (RBAC)</h2>
+      <p>En lugar de asignar permisos usuario por usuario, se definen 4 roles (<strong>rol_dba</strong>, <strong>rol_desarrollo</strong>, <strong>rol_direccion</strong>, <strong>rol_soporte</strong>) y se asignan a los usuarios. Así, añadir un empleado nuevo es trivial y se reducen los errores.</p>
+
+      <div class="code">
+        <div class="code-bar"><span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span><span class="code-title">SQL · roles y usuarios</span></div>
+<pre class="code-body"><span class="comment">-- Definir el rol y sus permisos una sola vez</span>
+CREATE ROLE IF NOT EXISTS rol_desarrollo;
+GRANT SELECT ON capsulecorp.* TO rol_desarrollo;
+GRANT INSERT, UPDATE ON capsulecorp.proyectos TO rol_desarrollo;
+
+<span class="comment">-- Crear el usuario y asignarle el rol</span>
+CREATE USER 'carlos_dev'@'%' IDENTIFIED BY '********';
+GRANT rol_desarrollo TO 'carlos_dev'@'%';
+
+<span class="comment">-- Clave: activar el rol por defecto (si no, parece que no funciona)</span>
+SET DEFAULT ROLE rol_desarrollo FOR 'carlos_dev'@'%';</pre>
+      </div>
+    </section>
+
+    <!-- 4. Backups -->
+    <section class="detail-section reveal">
+      <h2 data-no="04">Copias de seguridad</h2>
+      <p>Las copias se realizan con <strong>mysqldump</strong> y se automatizan con un script programado en cron, que además limpia los backups con más de 30 días.</p>
+
+      <div class="code">
+        <div class="code-bar"><span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span><span class="code-title">bash</span></div>
+<pre class="code-body"><span class="comment"># Backup completo de la base de datos</span>
+<span class="prompt">$</span> mysqldump -u dba_admin -p capsulecorp &gt; backup_$FECHA.sql
+
+<span class="comment"># Restauración: crear la BD y volcar el .sql</span>
+<span class="prompt">$</span> mysql -u root -p -e "CREATE DATABASE capsulecorp;"
+<span class="prompt">$</span> mysql -u root -p capsulecorp &lt; backup_$FECHA.sql
+
+<span class="comment"># Programado en cron (cada día a las 2:00)</span>
+0 2 * * * /home/kaneda/scripts/backup_auto_mariadb.sh</pre>
+      </div>
+    </section>
+
+    <!-- 5. Consultas -->
+    <section class="detail-section reveal">
+      <h2 data-no="05">Consultas avanzadas y optimización</h2>
+      <p>Se crean índices en las columnas usadas en <code>WHERE</code> y <code>JOIN</code>, y se verifican los planes de ejecución con <strong>EXPLAIN</strong>. Ejemplo con <code>JOIN</code>, <code>GROUP BY</code> y <code>HAVING</code> (empleados en más de un proyecto):</p>
+
+      <div class="code">
+        <div class="code-bar"><span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span><span class="code-title">SQL</span></div>
+<pre class="code-body">SELECT e.nombre, e.apellidos,
+       COUNT(a.id_proyecto) AS num_proyectos
+FROM empleados e
+INNER JOIN asignaciones a ON e.id_empleado = a.id_empleado
+GROUP BY e.id_empleado
+HAVING COUNT(a.id_proyecto) &gt; 1
+ORDER BY num_proyectos DESC;</pre>
+      </div>
+    </section>
+
+    <!-- 6. Automatización -->
+    <section class="detail-section reveal">
+      <h2 data-no="06">Automatización: triggers y funciones</h2>
+      <p>La lógica de negocio se automatiza dentro de la propia base de datos: un trigger audita los cambios de salario, otro <strong>bloquea la inserción de un gasto si supera el presupuesto</strong> del proyecto (con <code>SIGNAL</code>), más un procedimiento de informe y una función de porcentaje consumido.</p>
+
+      <div class="code">
+        <div class="code-bar"><span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span><span class="code-title">SQL · trigger de control de presupuesto</span></div>
+<pre class="code-body">CREATE TRIGGER trg_control_presupuesto
+BEFORE INSERT ON gastos
+FOR EACH ROW
+BEGIN
+    DECLARE gasto_actual DECIMAL(12,2);
+    SELECT COALESCE(SUM(importe), 0) INTO gasto_actual
+    FROM gastos WHERE id_proyecto = NEW.id_proyecto;
+
+    IF (gasto_actual + NEW.importe) &gt; presupuesto_proy THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'El gasto supera el presupuesto del proyecto.';
+    END IF;
+END</pre>
+      </div>
+    </section>
+
+    <!-- Retos -->
+    <section class="detail-section reveal">
+      <h2 data-no="//">Retos y aprendizajes</h2>
+      <div class="callout">
+        <span class="ico">💡</span>
+        <p>Los usuarios se conectaban pero "parecía" que no tenían permisos, aunque el rol estuviera concedido. La razón: MariaDB <strong>no activa los roles automáticamente</strong>. La solución fue usar <code>SET DEFAULT ROLE</code> para cada usuario. Un detalle pequeño que enseña a leer bien la documentación oficial.</p>
+      </div>
+    </section>
+
+    <!-- Conclusión -->
+    <section class="detail-section reveal">
+      <h2 data-no="//">Conclusión</h2>
+      <p>Una práctica muy completa que va del diseño del modelo hasta la automatización con triggers, pasando por seguridad, backups y optimización. Me ayudó a entender por qué las bases de datos son tan estrictas con permisos e integridad, y reforzó mi base de SQL para el día a día como administrador.</p>
+    </section>
+
+    <div class="detail-foot-nav">
+      <a href="capsulecorp-server.html">← capsulecorp-server</a>
+      <a href="red-vlans-sucursal.html">red-vlans-sucursal →</a>
+    </div>
+
+  </main>
+
+  <script src="../js/index.js"></script>
+</body>
+</html>

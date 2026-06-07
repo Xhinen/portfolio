@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>red-vlans-sucursal — Red local con VLANs · Alberto Mira</title>
+
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/proyecto.css" />
+</head>
+<body id="top">
+
+  <div class="bg-fixed"></div>
+  <div class="bg-grid"></div>
+
+  <nav>
+    <a href="../index.html" class="logo">
+      <span class="logo-mark">&gt;_</span>
+      <span class="logo-text">alberto<span class="dim">@devops</span></span>
+    </a>
+    <a href="../index.html#projects" class="back-link">← volver a proyectos</a>
+  </nav>
+
+  <main class="detail">
+
+    <div class="detail-breadcrumb">
+      <a href="../index.html">~/inicio</a> / <a href="../index.html#projects">proyectos</a> / red-vlans-sucursal
+    </div>
+
+    <p class="detail-module">// Administración de redes</p>
+    <h1 class="detail-title">Red local segmentada con VLANs</h1>
+
+    <div class="detail-meta">
+      <span class="deploy-badge ok">● completado</span>
+      <span class="dtag">Cisco</span>
+      <span class="dtag">VLAN</span>
+      <span class="dtag">VTP</span>
+      <span class="dtag">STP</span>
+      <span class="dtag">DHCP</span>
+    </div>
+
+    <p class="detail-lead">Diseño e implementación en <strong>Cisco Packet Tracer</strong> de la red de una sucursal con segmentación por departamentos, un switch de capa 3 como núcleo, servicios de red centralizados y seguridad básica en todos los dispositivos.</p>
+
+    <div class="detail-facts">
+      <div class="fact"><div class="k">Herramienta</div><div class="v">Cisco Packet Tracer</div></div>
+      <div class="fact"><div class="k">Núcleo</div><div class="v">Switch L3 (CORE_RED)</div></div>
+      <div class="fact"><div class="k">VLANs</div><div class="v">10 · 20 · 30 · 99</div></div>
+      <div class="fact"><div class="k">Servicios</div><div class="v">DHCP · DNS · HTTP</div></div>
+    </div>
+
+    <!-- Topología -->
+    <section class="detail-section reveal">
+      <h2 data-no="//">Topología</h2>
+      <p>Un router principal conectado a un switch de capa 3 (núcleo), del que cuelgan dos switches de acceso con enlace redundante y la red de servidores. Cada departamento tiene su propia VLAN.</p>
+
+      <div class="arch">
+        <div class="arch-head">ROUTER_RED → CORE_RED (switch capa 3)</div>
+        <div class="arch-firewall">
+          <span class="arch-label">⊟ enlaces troncales · VTP dominio REDPRUEBA</span>
+
+          <div class="arch-row">
+            <div class="arch-box info">SWITCH_DIST_1<span>VLAN 10 · 20</span></div>
+            <div class="arch-box info">SWITCH_DIST_2<span>VLAN 30</span></div>
+            <div class="arch-box green">Servidores<span>VLAN 99 · DHCP/DNS/HTTP</span></div>
+          </div>
+
+          <div class="arch-row">
+            <div class="arch-box ghost">Administración<span>VLAN 10 · 192.168.10.0</span></div>
+            <div class="arch-box ghost">Ventas<span>VLAN 20 · 192.168.20.0</span></div>
+            <div class="arch-box ghost">Soporte<span>VLAN 30 · 192.168.30.0</span></div>
+          </div>
+        </div>
+      </div>
+
+      <table class="info-table">
+        <thead>
+          <tr><th>VLAN</th><th>Departamento</th><th>Red</th><th>Gateway</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>10</td><td>Administración</td><td>192.168.10.0/24</td><td>192.168.10.1</td></tr>
+          <tr><td>20</td><td>Ventas</td><td>192.168.20.0/24</td><td>192.168.20.1</td></tr>
+          <tr><td>30</td><td>Soporte Técnico</td><td>192.168.30.0/24</td><td>192.168.30.1</td></tr>
+          <tr><td>99</td><td>Servidores</td><td>10.0.0.0/24</td><td>10.0.0.1</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Objetivos -->
+    <section class="detail-section reveal">
+      <h2 data-no="//">Objetivos</h2>
+      <ul>
+        <li>Segmentar la red por departamentos con <strong>VLANs</strong> gestionadas mediante <strong>VTP</strong>.</li>
+        <li>Configurar el <strong>enrutamiento inter-VLAN</strong> en el switch de capa 3.</li>
+        <li>Centralizar <strong>DHCP</strong> y ofrecer servicios <strong>DNS/HTTP</strong>.</li>
+        <li>Aplicar <strong>redundancia con Spanning Tree</strong> y seguridad básica en los equipos.</li>
+      </ul>
+    </section>
+
+    <!-- 1. VLANs y VTP -->
+    <section class="detail-section reveal">
+      <h2 data-no="01">VLANs y VTP</h2>
+      <p>El switch de capa 3 actúa como <strong>servidor VTP</strong> y propaga las VLANs; los switches de acceso son <strong>clientes</strong>, así no hay que crear las VLANs en cada uno.</p>
+
+      <div class="code">
+        <div class="code-bar"><span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span><span class="code-title">CORE_RED · IOS</span></div>
+<pre class="code-body">CORE_RED(config)# vtp mode server
+CORE_RED(config)# vtp domain REDPRUEBA
+CORE_RED(config)# vlan 10
+CORE_RED(config-vlan)# name ADMINISTRACION
+CORE_RED(config)# vlan 20
+CORE_RED(config-vlan)# name VENTAS
+CORE_RED(config)# vlan 30
+CORE_RED(config-vlan)# name SOPORTE_TECNICO
+
+<span class="comment">! Los switches de acceso → cliente VTP</span>
+SWITCH_DISTRIBUCION_1(config)# vtp mode client</pre>
+      </div>
+    </section>
+
+    <!-- 2. Inter-VLAN -->
+    <section class="detail-section reveal">
+      <h2 data-no="02">Enrutamiento inter-VLAN</h2>
+      <p>El switch de capa 3 enruta entre VLANs mediante interfaces virtuales (SVI). Como el servidor DHCP está en otra VLAN, se usa <code>ip helper-address</code> para reenviarle las peticiones.</p>
+
+      <div class="code">
+        <div class="code-bar"><span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span><span class="code-title">CORE_RED · SVI + DHCP relay</span></div>
+<pre class="code-body">CORE_RED(config)# ip routing
+
+CORE_RED(config)# interface vlan 10
+CORE_RED(config-if)# ip address 192.168.10.1 255.255.255.0
+CORE_RED(config-if)# ip helper-address 10.0.0.2
+CORE_RED(config-if)# no shutdown</pre>
+      </div>
+    </section>
+
+    <!-- 3. Servicios -->
+    <section class="detail-section reveal">
+      <h2 data-no="03">Servicios de red</h2>
+      <p>En la red de servidores (VLAN 99) se ubica el <strong>servidor DHCP</strong>, que asigna direcciones a todas las VLANs, y un servidor separado con <strong>DNS y HTTP</strong> (resolviendo <code>www.cisco.com</code> como prueba). Los pools dejan al menos 25 direcciones libres para asignación manual.</p>
+    </section>
+
+    <!-- 4. STP -->
+    <section class="detail-section reveal">
+      <h2 data-no="04">Redundancia con Spanning Tree</h2>
+      <p>Para que el switch núcleo sea el <strong>root bridge</strong> de todas las VLANs (y el tráfico circule de forma óptima por el enlace redundante), se le asigna la prioridad más baja:</p>
+
+      <div class="code">
+        <div class="code-bar"><span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span><span class="code-title">CORE_RED · STP</span></div>
+<pre class="code-body">CORE_RED(config)# spanning-tree vlan 10 priority 4096
+CORE_RED(config)# spanning-tree vlan 20 priority 4096
+CORE_RED(config)# spanning-tree vlan 30 priority 4096
+CORE_RED(config)# spanning-tree vlan 99 priority 4096</pre>
+      </div>
+    </section>
+
+    <!-- 5. Seguridad -->
+    <section class="detail-section reveal">
+      <h2 data-no="05">Seguridad de los dispositivos</h2>
+      <p>Configuración mínima de seguridad en routers y switches: contraseña de modo privilegiado, de consola y de acceso remoto (vty), cifrado de contraseñas, banner de advertencia y guardado de la configuración.</p>
+
+      <div class="code">
+        <div class="code-bar"><span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span><span class="code-title">IOS · seguridad básica</span></div>
+<pre class="code-body">Router(config)# enable secret cisco123
+Router(config)# line console 0
+Router(config-line)# password cisco1234
+Router(config-line)# login
+Router(config)# line vty 0 4
+Router(config-line)# password cisco1234
+Router(config-line)# login
+Router(config)# service password-encryption
+Router(config)# banner motd #SOLO PERSONAL AUTORIZADO#
+Router# copy running-config startup-config</pre>
+      </div>
+    </section>
+
+    <!-- Conclusión -->
+    <section class="detail-section reveal">
+      <h2 data-no="//">Conclusión</h2>
+      <p>Un proyecto de redes muy completo donde se ven en conjunto la segmentación, el enrutamiento de capa 3, los servicios centralizados y la redundancia. Entender cómo "hablan" entre sí las VLANs y por qué se centraliza el DHCP es básico para cualquier infraestructura sobre la que después corre DevOps.</p>
+    </section>
+
+    <div class="detail-foot-nav">
+      <a href="mariadb-capsulecorp.html">← mariadb-capsulecorp</a>
+      <a href="ruteo-estatico-tecnopyme.html">ruteo-estatico-tecnopyme →</a>
+    </div>
+
+  </main>
+
+  <script src="../js/index.js"></script>
+</body>
+</html>

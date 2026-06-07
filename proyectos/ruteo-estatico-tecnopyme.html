@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ruteo-estatico-tecnopyme — Ruteo estático multi-sede · Alberto Mira</title>
+
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/proyecto.css" />
+</head>
+<body id="top">
+
+  <div class="bg-fixed"></div>
+  <div class="bg-grid"></div>
+
+  <nav>
+    <a href="../index.html" class="logo">
+      <span class="logo-mark">&gt;_</span>
+      <span class="logo-text">alberto<span class="dim">@devops</span></span>
+    </a>
+    <a href="../index.html#projects" class="back-link">← volver a proyectos</a>
+  </nav>
+
+  <main class="detail">
+
+    <div class="detail-breadcrumb">
+      <a href="../index.html">~/inicio</a> / <a href="../index.html#projects">proyectos</a> / ruteo-estatico-tecnopyme
+    </div>
+
+    <p class="detail-module">// Administración de redes</p>
+    <h1 class="detail-title">Ruteo estático multi-sede</h1>
+
+    <div class="detail-meta">
+      <span class="deploy-badge ok">● completado</span>
+      <span class="dtag">Cisco</span>
+      <span class="dtag">Routing</span>
+      <span class="dtag">DHCP</span>
+      <span class="dtag">DNS</span>
+    </div>
+
+    <p class="detail-lead">Interconexión de las tres sedes de la empresa <strong>TecnoPyme S.L.</strong> mediante enlaces punto a punto y <strong>rutas estáticas</strong> en Cisco Packet Tracer. La sede central ofrece DHCP y DNS, combinando direccionamiento estático y dinámico.</p>
+
+    <div class="detail-facts">
+      <div class="fact"><div class="k">Herramienta</div><div class="v">Cisco Packet Tracer</div></div>
+      <div class="fact"><div class="k">Sedes</div><div class="v">3 routers (R1 · R2 · R3)</div></div>
+      <div class="fact"><div class="k">Enrutamiento</div><div class="v">Estático</div></div>
+      <div class="fact"><div class="k">Servicios</div><div class="v">DHCP · DNS (en R1)</div></div>
+    </div>
+
+    <!-- Topología -->
+    <section class="detail-section reveal">
+      <h2 data-no="//">Estructura de la red</h2>
+      <p>La sede central (R1) es el núcleo y da servicios a su LAN. Las dos sucursales (R2 y R3) se conectan en serie mediante enlaces punto a punto y actúan como routers intermedios.</p>
+
+      <div class="arch">
+        <div class="arch-head">R1 (Sede Central) ↔ R2 (Sucursal 1) ↔ R3 (Sucursal 2)</div>
+        <div class="arch-firewall">
+          <span class="arch-label">⊟ enlaces punto a punto · /30</span>
+          <div class="arch-row">
+            <div class="arch-box green">R1 · Central<span>LAN 192.168.10.0<br>DHCP + DNS</span></div>
+            <div class="arch-box info">R2 · Sucursal 1<span>LAN 192.168.20.0</span></div>
+            <div class="arch-box info">R3 · Sucursal 2<span>LAN 192.168.30.0</span></div>
+          </div>
+        </div>
+      </div>
+
+      <table class="info-table">
+        <thead>
+          <tr><th>Sede</th><th>LAN</th><th>Enlaces (/30)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>R1 · Central</td><td>192.168.10.0/24</td><td>→ R2: 192.168.12.0</td></tr>
+          <tr><td>R2 · Sucursal 1</td><td>192.168.20.0/24</td><td>→ R1 · → R3: 192.168.23.0</td></tr>
+          <tr><td>R3 · Sucursal 2</td><td>192.168.30.0/24</td><td>→ R2</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Objetivos -->
+    <section class="detail-section reveal">
+      <h2 data-no="//">Objetivos</h2>
+      <ul>
+        <li>Configurar <strong>ruteo estático</strong> en los tres routers para conectar todas las LAN.</li>
+        <li>Ofrecer <strong>DHCP</strong> desde la sede central a su red local.</li>
+        <li>Implementar un servicio <strong>DNS</strong> bajo el dominio <code>www.tecnopyme.com</code>.</li>
+        <li>Combinar <strong>IP estática</strong> (primer equipo de cada sede) y <strong>dinámica</strong> (resto).</li>
+      </ul>
+    </section>
+
+    <!-- 1. Ruteo -->
+    <section class="detail-section reveal">
+      <h2 data-no="01">Ruteo estático</h2>
+      <p>Cada router necesita conocer las redes que no tiene conectadas directamente. Desde R1, las redes de las sucursales se alcanzan a través de R2:</p>
+
+      <div class="code">
+        <div class="code-bar"><span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span><span class="code-title">R1 · rutas estáticas</span></div>
+<pre class="code-body"><span class="comment">! R1 conoce las redes remotas a través de R2 (192.168.12.2)</span>
+R1(config)# ip route 192.168.20.0 255.255.255.0 192.168.12.2
+R1(config)# ip route 192.168.30.0 255.255.255.0 192.168.12.2
+
+<span class="comment">! R3 conoce las demás redes a través de R2 (192.168.23.1)</span>
+R3(config)# ip route 192.168.10.0 255.255.255.0 192.168.23.1
+R3(config)# ip route 192.168.20.0 255.255.255.0 192.168.23.1</pre>
+      </div>
+    </section>
+
+    <!-- 2. DHCP -->
+    <section class="detail-section reveal">
+      <h2 data-no="02">DHCP centralizado</h2>
+      <p>R1 hospeda los pools DHCP de las tres LAN. Se excluyen las primeras 20 direcciones de cada red (reservadas para equipos con IP estática). R2 y R3 reenvían las peticiones de sus LAN a R1 con <code>ip helper-address</code>.</p>
+
+      <div class="code">
+        <div class="code-bar"><span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span><span class="code-title">R1 · DHCP</span></div>
+<pre class="code-body">R1(config)# ip dhcp excluded-address 192.168.10.1 192.168.10.20
+R1(config)# ip dhcp pool LAN_R1
+R1(dhcp-config)# network 192.168.10.0 255.255.255.0
+R1(dhcp-config)# default-router 192.168.10.1
+R1(dhcp-config)# dns-server 192.168.40.1
+
+<span class="comment">! En las sucursales: reenviar el DHCP a R1</span>
+R2(config-if)# ip helper-address 192.168.10.1</pre>
+      </div>
+    </section>
+
+    <!-- 3. DNS -->
+    <section class="detail-section reveal">
+      <h2 data-no="03">Servicio DNS</h2>
+      <p>El servidor de la sede central resuelve nombres internos bajo el dominio <code>www.tecnopyme.com</code>, y se verifica la resolución desde las tres sedes mediante pruebas de ping y consulta por nombre.</p>
+    </section>
+
+    <!-- Conclusión -->
+    <section class="detail-section reveal">
+      <h2 data-no="//">Conclusión</h2>
+      <p>Un escenario clásico de WAN entre sedes que afianza el ruteo estático, el reenvío de DHCP entre redes y la resolución DNS. Comprender bien el enrutamiento manual es la mejor base antes de pasar a protocolos dinámicos y a redes en la nube.</p>
+    </section>
+
+    <div class="detail-foot-nav">
+      <a href="red-vlans-sucursal.html">← red-vlans-sucursal</a>
+      <a href="techshop-web.html">techshop-web →</a>
+    </div>
+
+  </main>
+
+  <script src="../js/index.js"></script>
+</body>
+</html>

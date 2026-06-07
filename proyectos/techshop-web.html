@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>techshop-web — Tienda web · Alberto Mira</title>
+
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/proyecto.css" />
+</head>
+<body id="top">
+
+  <div class="bg-fixed"></div>
+  <div class="bg-grid"></div>
+
+  <nav>
+    <a href="../index.html" class="logo">
+      <span class="logo-mark">&gt;_</span>
+      <span class="logo-text">alberto<span class="dim">@devops</span></span>
+    </a>
+    <a href="../index.html#projects" class="back-link">← volver a proyectos</a>
+  </nav>
+
+  <main class="detail">
+
+    <div class="detail-breadcrumb">
+      <a href="../index.html">~/inicio</a> / <a href="../index.html#projects">proyectos</a> / techshop-web
+    </div>
+
+    <p class="detail-module">// Implementación de aplicaciones web</p>
+    <h1 class="detail-title">Tienda web TechShop</h1>
+
+    <div class="detail-meta">
+      <span class="deploy-badge ok">● desplegado</span>
+      <span class="dtag">HTML</span>
+      <span class="dtag">CSS</span>
+      <span class="dtag">JavaScript</span>
+      <span class="dtag">Apache</span>
+    </div>
+
+    <p class="detail-lead">Sitio web de una tienda de tecnología desarrollado con <strong>HTML, CSS y JavaScript</strong>: tres páginas con estética coherente y validación de formulario por DOM. Lo curioso: está desplegada de verdad sobre el servidor Apache del proyecto de sistemas.</p>
+
+    <div class="detail-facts">
+      <div class="fact"><div class="k">Stack</div><div class="v">HTML · CSS · JS (vanilla)</div></div>
+      <div class="fact"><div class="k">Páginas</div><div class="v">Portada · Producto · Contacto</div></div>
+      <div class="fact"><div class="k">Despliegue</div><div class="v">Apache (capsulecorp)</div></div>
+      <div class="fact"><div class="k">Módulo</div><div class="v">Aplicaciones web</div></div>
+    </div>
+
+    <!-- Objetivos -->
+    <section class="detail-section reveal">
+      <h2 data-no="//">Objetivos</h2>
+      <ul>
+        <li>Crear tres páginas (portada, producto y contacto) con una <strong>estética consistente</strong>.</li>
+        <li>Mostrar un producto con su imagen, precio, descripción y botón de <strong>carrito</strong>.</li>
+        <li>Construir un formulario de contacto con <strong>validación de campos por DOM</strong>.</li>
+        <li>Desplegar el sitio en un servidor web real.</li>
+      </ul>
+    </section>
+
+    <!-- 1. Portada -->
+    <section class="detail-section reveal">
+      <h2 data-no="01">Portada</h2>
+      <p>Página de inicio con cabecera, barra de navegación hacia las otras dos páginas, productos destacados con descuentos y una sección de ventajas de la tienda. Es la base que define la identidad visual del sitio.</p>
+    </section>
+
+    <!-- 2. Producto -->
+    <section class="detail-section reveal">
+      <h2 data-no="02">Ficha de producto</h2>
+      <p>Página de ejemplo de un producto con imagen, nombre, precio, descripción, selector de cantidad y un botón <strong>"Agregar al carrito"</strong> que muestra una confirmación. Incluye pestañas de descripción, especificaciones y opiniones.</p>
+    </section>
+
+    <!-- 3. Contacto -->
+    <section class="detail-section reveal">
+      <h2 data-no="03">Formulario de contacto</h2>
+      <p>El requisito clave era validar que todos los campos estén rellenos usando el DOM. Con <code>getElementById</code> se comprueba nombre, email y mensaje antes de enviar, marcando en rojo los campos incorrectos:</p>
+
+      <div class="code">
+        <div class="code-bar"><span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span><span class="code-title">validacion.js</span></div>
+<pre class="code-body">document.getElementById('formulario-contacto')
+  .addEventListener('submit', function (e) {
+    e.preventDefault();
+    var valido = true;
+
+    var nombre = document.getElementById('nombre').value;
+    var email  = document.getElementById('email').value;
+
+    <span class="comment">// El nombre no puede estar vacío</span>
+    if (nombre.trim() === '') {
+      document.getElementById('nombre').classList.add('error');
+      valido = false;
+    }
+    <span class="comment">// ...se validan también email y mensaje</span>
+
+    if (valido) {
+      mostrarMensajeExito();
+    }
+  });</pre>
+      </div>
+    </section>
+
+    <!-- 4. Despliegue -->
+    <section class="detail-section reveal">
+      <h2 data-no="04">Despliegue real</h2>
+      <p>En lugar de quedarse en local, esta web se subió por <strong>SCP</strong> al servidor del proyecto de sistemas y se sirve desde un VirtualHost de Apache (<code>capsulecorp.local</code>). Es un buen ejemplo de cómo encajan dos módulos distintos: la web del módulo de aplicaciones corriendo sobre la infraestructura del módulo de sistemas.</p>
+      <div class="callout">
+        <span class="ico">🔗</span>
+        <p>Esta web es la que se aloja en el <a href="capsulecorp-server.html" style="color:var(--ok);">servidor capsulecorp</a> a través de su VirtualHost de Apache.</p>
+      </div>
+    </section>
+
+    <!-- Conclusión -->
+    <section class="detail-section reveal">
+      <h2 data-no="//">Conclusión</h2>
+      <p>Un proyecto más ligero que los de sistemas y redes, pero que me sirvió para repasar HTML/CSS/JS y, sobre todo, para ver el ciclo completo: desarrollar la web y luego desplegarla en un servidor propio. Esa unión entre desarrollo y operación es justo lo que me atrae de DevOps.</p>
+    </section>
+
+    <div class="detail-foot-nav">
+      <a href="ruteo-estatico-tecnopyme.html">← ruteo-estatico-tecnopyme</a>
+      <a href="../index.html#projects">Todos los proyectos →</a>
+    </div>
+
+  </main>
+
+  <script src="../js/index.js"></script>
+</body>
+</html>

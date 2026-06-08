@@ -746,6 +746,12 @@ section {
   padding: 1.2rem;
 }
 
+/* Reserva sitio abajo en las tarjetas clicables para que
+   el hint "ver proyecto →" no se superponga al contenido */
+.deploy-linked .deploy-body {
+  padding-bottom: 3rem;
+}
+
 .deploy-body h3 {
   font-size: 1.05rem;
   font-weight: 700;

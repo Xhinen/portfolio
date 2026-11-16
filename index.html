@@ -3,329 +3,428 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alberto Mira — DevOps &amp; SysAdmin · Portfolio</title>
-
-  <!-- Favicon -->
+  <title>Alberto Mira · Sistemas y DevOps</title>
+  <meta name="description" content="Administrador de sistemas en camino a DevOps. Plataforma autoalojada con Kubernetes, Argo CD, Ansible y copias verificadas." />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
-  <!-- Fuentes -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
 
-  <!-- Estilos -->
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/hud.css" />
 </head>
-<body id="top">
+<body>
 
-  <div class="bg-fixed"></div>
-  <div class="bg-grid"></div>
+  <a class="skip" href="#contenido">
+    <span lang="es">Saltar al contenido</span><span lang="en">Skip to content</span>
+  </a>
 
-  <!-- ====================== NAV ====================== -->
-  <nav>
-    <a href="#top" class="logo">
-      <span class="logo-mark">&gt;_</span>
-      <span class="logo-text">alberto<span class="dim">@devops</span></span>
+  <!-- ============ BARRA SUPERIOR ============ -->
+  <header class="bar">
+    <a href="#top" class="brand" aria-label="Alberto Mira, inicio">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M2 10V2h8M22 2h8v8M30 22v8h-8M10 30H2v-8" />
+        <circle cx="16" cy="16" r="5" />
+      </svg>
+      <span>alberto mira</span>
     </a>
 
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#about">~/sobre-mi</a></li>
-      <li><a href="#stack">~/stack</a></li>
-      <li><a href="#projects">~/proyectos</a></li>
-      <li><a href="#certs">~/formacion</a></li>
-      <li><a href="#contact">~/contacto</a></li>
-    </ul>
+    <nav id="nav" class="nav" aria-label="Principal">
+      <a href="#plataforma"><span lang="es">Plataforma</span><span lang="en">Platform</span></a>
+      <a href="#experiencia"><span lang="es">Experiencia</span><span lang="en">Experience</span></a>
+      <a href="#proyectos"><span lang="es">Proyectos</span><span lang="en">Projects</span></a>
+      <a href="#perfil"><span lang="es">Perfil</span><span lang="en">Profile</span></a>
+      <a href="#contacto"><span lang="es">Contacto</span><span lang="en">Contact</span></a>
+    </nav>
 
-    <div class="nav-pill"><span class="dot"></span>open_to_work</div>
-
-    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
-  </nav>
-
-  <!-- ====================== HERO ====================== -->
-  <header class="hero">
-    <div class="hero-left">
-      <div class="tagline"><span class="gt">$</span> whoami &amp;&amp; echo "ready to deploy"</div>
-      <h1>Alberto Mira<br><span class="role">DevOps &amp; SysAdmin</span></h1>
-      <p class="lead">Estudiante de <strong>ASIR</strong> orientado a <strong>DevOps</strong> e infraestructura. Vengo de la administración de sistemas y la ciberseguridad, y me obsesiona automatizar todo lo que se mueve: <strong>servidores, redes y despliegues</strong>.</p>
-      <div class="cta">
-        <a href="#projects" class="btn btn-primary">$ ver proyectos</a>
-        <a href="#contact" class="btn btn-ghost">Contactar</a>
-        <div class="hero-social">
-          <a href="https://github.com/Xhinen" target="_blank" rel="noopener">github↗</a>
-          <a href="https://www.linkedin.com/in/alberto-m-915919198/" target="_blank" rel="noopener">linkedin↗</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Terminal / Pipeline -->
-    <div class="pipeline">
-      <div class="pl-bar">
-        <span>⎇ <span class="branch">main</span></span>
-        <span class="commit">kaneda@capsulecorp</span>
-      </div>
-      <div class="pl-body">
-        <div class="pl-stage done">
-          <div class="pl-icon">✓</div>
-          <div class="pl-info"><div class="pl-name">provision</div><div class="pl-meta">ubuntu server · users + acl</div></div>
-          <span class="pl-status ok">ok</span>
-        </div>
-        <div class="pl-stage done">
-          <div class="pl-icon">✓</div>
-          <div class="pl-info"><div class="pl-name">services</div><div class="pl-meta">ssh · apache · mariadb</div></div>
-          <span class="pl-status ok">ok</span>
-        </div>
-        <div class="pl-stage done">
-          <div class="pl-icon">✓</div>
-          <div class="pl-info"><div class="pl-name">harden</div><div class="pl-meta">ufw · fail2ban · zerotrust</div></div>
-          <span class="pl-status ok">ok</span>
-        </div>
-        <div class="pl-stage running">
-          <div class="pl-icon">◐</div>
-          <div class="pl-info"><div class="pl-name">aprender k8s</div><div class="pl-meta">camino devops...</div></div>
-          <span class="pl-status run">running</span>
-        </div>
-      </div>
-      <div class="pl-foot">
-        <div><div class="v">5+</div><div class="l">proyectos</div></div>
-        <div><div class="v">2º</div><div class="l">ASIR</div></div>
-        <div><div class="v">∞</div><div class="l">café</div></div>
-      </div>
+    <div class="bar-tools">
+      <button class="lang" id="langToggle" type="button" aria-label="Cambiar idioma / Change language">
+        <span class="lang-opt" data-l="es">ES</span><span class="lang-opt" data-l="en">EN</span>
+      </button>
+      <button class="menu" id="menuToggle" type="button" aria-expanded="false" aria-controls="nav">
+        <span lang="es">Menú</span><span lang="en">Menu</span>
+      </button>
     </div>
   </header>
 
-  <!-- ====================== SOBRE MÍ ====================== -->
-  <section id="about" class="reveal">
-    <div class="sec-head">
-      <span class="sec-no">01</span>
-      <h2 class="sec-title">Sobre mí</h2>
-      <span class="sec-line"></span>
-    </div>
-    <div class="about-grid">
-      <div class="about-text">
-        <p>Soy <strong>Alberto Mira</strong>, estudiante de segundo curso de <strong>Administración de Sistemas Informáticos en Red (ASIR)</strong> con una clara orientación hacia <strong>DevOps</strong>, la infraestructura y la ciberseguridad. Me interesa lo que ocurre por debajo de la interfaz: servidores, redes, bases de datos y automatización.</p>
-        <p>En mis proyectos he desplegado y administrado servidores <strong>Linux</strong> completos (usuarios, permisos ACL, servicios, hardening), diseñado redes empresariales con <strong>VLANs y routing en Cisco</strong>, y administrado bases de datos <strong>MariaDB</strong> con roles, triggers y procedimientos. Todo lo que puedo, lo automatizo con scripts y lo securizo siguiendo el principio de mínimo privilegio.</p>
-        <p>Busco mi <strong>primera oportunidad profesional</strong> como técnico de sistemas, administrador junior o en el camino hacia DevOps/SRE. Disponible de forma presencial o en <strong>remoto</strong>.</p>
-      </div>
-      <div class="manifest">
-        <div class="manifest-bar"><span class="dotr">●</span> perfil.yaml</div>
-        <div class="manifest-body">
-          <div><span class="mf-key">apiVersion</span>: <span class="mf-str">v1</span></div>
-          <div><span class="mf-key">kind</span>: <span class="mf-str">Engineer</span></div>
-          <div><span class="mf-key">metadata</span>:</div>
-          <div class="mf-ind"><span class="mf-key">name</span>: <span class="mf-str">alberto-mira</span></div>
-          <div class="mf-ind"><span class="mf-key">alias</span>: <span class="mf-str">xhinen</span></div>
-          <div class="mf-ind"><span class="mf-key">base</span>: <span class="mf-str">españa-remote</span></div>
-          <div><span class="mf-key">spec</span>:</div>
-          <div class="mf-ind"><span class="mf-key">focus</span>: <span class="mf-str">[linux, redes, devops]</span></div>
-          <div class="mf-ind"><span class="mf-key">status</span>: <span class="mf-str">available</span></div>
-          <div class="mf-ind"><span class="mf-key">coffee</span>: <span class="mf-str">true</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <main id="contenido">
 
-  <!-- ====================== STACK ====================== -->
-  <section id="stack" class="reveal">
-    <div class="sec-head">
-      <span class="sec-no">02</span>
-      <h2 class="sec-title">Stack &amp; herramientas</h2>
-      <span class="sec-line"></span>
-    </div>
-    <div class="stack-cats">
-      <div class="cat-card">
-        <div class="cat-head"><div class="cat-icon">🐧</div><span class="cat-name">Sistemas Operativos</span><span class="cat-no">_01</span></div>
-        <div class="chips"><span class="chip">Linux</span><span class="chip">Ubuntu Server</span><span class="chip">Debian</span><span class="chip">Windows Server</span></div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-head"><div class="cat-icon">🌐</div><span class="cat-name">Redes</span><span class="cat-no">_02</span></div>
-        <div class="chips"><span class="chip">Cisco IOS</span><span class="chip">VLAN / VTP</span><span class="chip">Routing</span><span class="chip">STP</span><span class="chip">Packet Tracer</span></div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-head"><div class="cat-icon">🗄️</div><span class="cat-name">Bases de Datos</span><span class="cat-no">_03</span></div>
-        <div class="chips"><span class="chip">MariaDB</span><span class="chip">MySQL</span><span class="chip">SQL</span><span class="chip">DBeaver</span></div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-head"><div class="cat-icon">⚙️</div><span class="cat-name">Servicios &amp; Scripting</span><span class="cat-no">_04</span></div>
-        <div class="chips"><span class="chip">Apache</span><span class="chip">SSH</span><span class="chip">DHCP / DNS</span><span class="chip">Bash</span><span class="chip">Cron</span></div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-head"><div class="cat-icon">🛡️</div><span class="cat-name">Seguridad &amp; Hardening</span><span class="cat-no">_05</span></div>
-        <div class="chips"><span class="chip">UFW</span><span class="chip">Fail2ban</span><span class="chip">ACL</span><span class="chip">sudo / Zero Trust</span></div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-head"><div class="cat-icon">🚀</div><span class="cat-name">Virtualización &amp; DevOps</span><span class="cat-no">_06</span></div>
-        <div class="chips"><span class="chip">VMware</span><span class="chip">Proxmox</span><span class="chip">Git</span><span class="chip learning">Docker</span><span class="chip learning">Kubernetes</span><span class="chip learning">CI/CD</span></div>
-      </div>
-    </div>
-  </section>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="top">
+      <div class="hero-id">
+        <p class="status"><span class="status-led" aria-hidden="true"></span>
+          <span lang="es">Disponible para trabajar desde enero de 2027</span>
+          <span lang="en">Available for work from January 2027</span>
+        </p>
 
-  <!-- ====================== PROYECTOS ====================== -->
-  <section id="projects" class="reveal">
-    <div class="sec-head">
-      <span class="sec-no">03</span>
-      <h2 class="sec-title">Proyectos</h2>
-      <span class="sec-line"></span>
-    </div>
-    <div class="deploys">
+        <h1>Alberto<br />Mira</h1>
 
-      <a class="deploy deploy-linked" href="proyectos/capsulecorp-server.html">
-        <div class="deploy-top">
-          <span class="deploy-repo">⎘ <b>capsulecorp-server</b></span>
-          <span class="deploy-badge ok">● completado</span>
-        </div>
-        <div class="deploy-body">
-          <p class="module">// ASO · Administración avanzada de sistemas</p>
-          <h3>Servidor Linux empresarial</h3>
-          <p>Despliegue y administración de un servidor Ubuntu Server 24.04 para una empresa simulada: usuarios y grupos por roles con permisos ACL, SSH securizado (puerto personalizado, banner, restricciones), Apache2 con VirtualHost y MariaDB. Automatización con scripts Bash (gestión de usuarios, backups, monitorización) programados en cron, hardening con UFW y auditoría SUID, más una capa extra de sudo Zero Trust (sudoers.d) y Fail2ban.</p>
-          <div class="deploy-tags"><span class="dtag">Ubuntu Server</span><span class="dtag">Bash</span><span class="dtag">SSH</span><span class="dtag">Apache</span><span class="dtag">UFW</span><span class="dtag">Fail2ban</span></div>
-        </div>
-        <div class="deploy-hint">ver proyecto →</div>
-      </a>
+        <p class="role">
+          <span lang="es">Administrador de sistemas en camino a DevOps</span>
+          <span lang="en">Systems administrator on the way to DevOps</span>
+        </p>
 
-      <a class="deploy deploy-linked" href="proyectos/mariadb-capsulecorp.html">
-        <div class="deploy-top">
-          <span class="deploy-repo">⎘ <b>mariadb-capsulecorp</b></span>
-          <span class="deploy-badge ok">● completado</span>
-        </div>
-        <div class="deploy-body">
-          <p class="module">// ASGBD · Administración de bases de datos</p>
-          <h3>Administración avanzada de MariaDB</h3>
-          <p>Diseño e implementación de una base de datos relacional de 6 tablas con integridad referencial sobre MariaDB. Seguridad basada en roles (RBAC) con mínimo privilegio, copias de seguridad automatizadas con mysqldump y cron, optimización con índices y EXPLAIN, y automatización mediante triggers, procedimientos almacenados y funciones. Conexión remota con DBeaver.</p>
-          <div class="deploy-tags"><span class="dtag">MariaDB</span><span class="dtag">SQL</span><span class="dtag">RBAC</span><span class="dtag">Triggers</span><span class="dtag">DBeaver</span></div>
-        </div>
-        <div class="deploy-hint">ver proyecto →</div>
-      </a>
+        <p class="lead">
+          <span lang="es">Monto, automatizo y vigilo infraestructura Linux. Estoy de prácticas como sysadmin en ALTEN y mi proyecto final es una plataforma autoalojada con Kubernetes, GitOps y copias de seguridad que he puesto a prueba de verdad.</span>
+          <span lang="en">I build, automate and monitor Linux infrastructure. I'm a sysadmin intern at ALTEN, and my final project is a self-hosted platform with Kubernetes, GitOps and backups I have actually put to the test.</span>
+        </p>
 
-      <a class="deploy deploy-linked" href="proyectos/red-vlans-sucursal.html">
-        <div class="deploy-top">
-          <span class="deploy-repo">⎘ <b>red-vlans-sucursal</b></span>
-          <span class="deploy-badge ok">● completado</span>
-        </div>
-        <div class="deploy-body">
-          <p class="module">// Administración de redes</p>
-          <h3>Red local segmentada con VLANs</h3>
-          <p>Diseño e implementación en Cisco Packet Tracer de la red de una sucursal con segmentación por departamentos (VLAN 10/20/30 + servidores). Switch de capa 3 como núcleo con enrutamiento inter-VLAN (SVI), propagación de VLANs con VTP, redundancia con Spanning Tree, DHCP centralizado mediante ip helper-address y servicios DNS/HTTP, con seguridad básica en todos los dispositivos.</p>
-          <div class="deploy-tags"><span class="dtag">Cisco</span><span class="dtag">VLAN</span><span class="dtag">VTP</span><span class="dtag">STP</span><span class="dtag">DHCP</span></div>
-        </div>
-        <div class="deploy-hint">ver proyecto →</div>
-      </a>
-
-      <a class="deploy deploy-linked" href="proyectos/ruteo-estatico-tecnopyme.html">
-        <div class="deploy-top">
-          <span class="deploy-repo">⎘ <b>ruteo-estatico-tecnopyme</b></span>
-          <span class="deploy-badge ok">● completado</span>
-        </div>
-        <div class="deploy-body">
-          <p class="module">// Administración de redes</p>
-          <h3>Ruteo estático multi-sede</h3>
-          <p>Interconexión de tres sedes mediante enlaces punto a punto y rutas estáticas en Cisco Packet Tracer. La sede central ofrece servicios DHCP y DNS a su LAN, combinando direccionamiento estático y dinámico, garantizando conectividad total entre todas las redes y la resolución de nombres.</p>
-          <div class="deploy-tags"><span class="dtag">Cisco</span><span class="dtag">Routing</span><span class="dtag">DHCP</span><span class="dtag">DNS</span></div>
-        </div>
-        <div class="deploy-hint">ver proyecto →</div>
-      </a>
-
-      <a class="deploy deploy-linked" href="proyectos/techshop-web.html">
-        <div class="deploy-top">
-          <span class="deploy-repo">⎘ <b>techshop-web</b></span>
-          <span class="deploy-badge ok">● desplegado</span>
-        </div>
-        <div class="deploy-body">
-          <p class="module">// Implementación de aplicaciones web</p>
-          <h3>Tienda web TechShop</h3>
-          <p>Sitio web de una tienda de tecnología desarrollado con HTML, CSS y JavaScript: portada, ficha de producto con carrito y formulario de contacto con validación por DOM. Desplegado de forma real sobre el servidor Apache del proyecto de sistemas, sirviéndose desde un VirtualHost propio.</p>
-          <div class="deploy-tags"><span class="dtag">HTML</span><span class="dtag">CSS</span><span class="dtag">JavaScript</span><span class="dtag">Apache</span></div>
-        </div>
-        <div class="deploy-hint">ver proyecto →</div>
-      </a>
-
-      <div class="deploy deploy-soon">
-        <div class="deploy-top">
-          <span class="deploy-repo">⎘ <b>proximamente</b></span>
-          <span class="deploy-badge run">◐ en camino</span>
-        </div>
-        <div class="deploy-body">
-          <p class="module">// más proyectos</p>
-          <h3>Espacio reservado</h3>
-          <p>Aquí irán los próximos proyectos que vaya completando del ciclo y por mi cuenta (homelab, contenedores, CI/CD...). Este portfolio se construye poco a poco.</p>
-          <div class="deploy-tags"><span class="dtag">soon™</span></div>
+        <div class="actions">
+          <a class="btn btn-solid" href="#plataforma">
+            <span lang="es">Ver mi plataforma DevOps</span><span lang="en">See my DevOps platform</span>
+          </a>
+          <a class="btn btn-line" href="#contacto">
+            <span lang="es">Contactar</span><span lang="en">Get in touch</span>
+          </a>
         </div>
       </div>
 
-    </div>
-  </section>
+      <!-- Esquema de la plataforma (datos reales de piasir-plataforma-devops) -->
+      <figure class="lab" aria-labelledby="labCaption">
+        <svg class="lab-svg" viewBox="0 0 520 480" role="img" aria-labelledby="labTitle">
+          <title id="labTitle">Esquema de la plataforma: un servidor Proxmox con un clúster Kubernetes de tres nodos y tres servicios de apoyo: DNS, construcción de imágenes y copias de seguridad.</title>
 
-  <!-- ====================== FORMACIÓN ====================== -->
-  <section id="certs" class="reveal">
-    <div class="sec-head">
-      <span class="sec-no">04</span>
-      <h2 class="sec-title">Formación</h2>
-      <span class="sec-line"></span>
-    </div>
-    <div class="certs">
-      <div class="cert"><div class="cert-ico">🎓</div><div><h4>Técnico Superior ASIR</h4><p>FP Grado Superior · cursando 2º</p></div></div>
-      <div class="cert"><div class="cert-ico">🛡️</div><div><h4>Bootcamp Ciberseguridad</h4><p>Formación complementaria</p></div></div>
-      <div class="cert placeholder"><div class="cert-ico">＋</div><div><h4>Tu certificación</h4><p>añade aquí las tuyas reales</p></div></div>
-      <div class="cert placeholder"><div class="cert-ico">＋</div><div><h4>Tu certificación</h4><p>añade aquí las tuyas reales</p></div></div>
-    </div>
-  </section>
+          <g class="frame">
+            <path d="M6 40V6h34M480 6h34v34M514 440v34h-34M40 474H6v-34" />
+          </g>
+          <g class="ticks">
+            <path d="M260 6v8M260 466v8M6 240h8M506 240h8" />
+          </g>
 
-  <!-- ====================== CONTACTO ====================== -->
-  <section id="contact" class="reveal">
-    <div class="sec-head">
-      <span class="sec-no">05</span>
-      <h2 class="sec-title">Contacto</h2>
-      <span class="sec-line"></span>
-    </div>
-    <div class="contact-grid">
-      <div class="contact-left">
-        <h2>Hagamos <span class="role">deploy</span> juntos.</h2>
-        <p>¿Una oportunidad como técnico de sistemas, administrador junior o en el camino hacia DevOps? Estoy listo para empezar. Respondo en menos de 24h.</p>
-        <div class="cmethods">
-          <a href="mailto:tucorreo@ejemplo.es" class="cmethod"><span class="ico">📧</span><div><div class="k">EMAIL</div><div class="v">tucorreo@ejemplo.es</div></div></a>
-          <a href="https://www.linkedin.com/in/alberto-m-915919198/" target="_blank" rel="noopener" class="cmethod"><span class="ico">💼</span><div><div class="k">LINKEDIN</div><div class="v">Alberto Mira</div></div></a>
-          <a href="https://github.com/Xhinen" target="_blank" rel="noopener" class="cmethod"><span class="ico">🐙</span><div><div class="k">GITHUB</div><div class="v">@Xhinen</div></div></a>
-          <a href="#" class="cmethod"><span class="ico">📍</span><div><div class="k">UBICACIÓN</div><div class="v">España — Remoto</div></div></a>
+          <g class="host">
+            <path class="host-box" d="M40 26h424l16 16v42H56l-16-16z" />
+            <text x="62" y="52" class="t-name">proxmox-ve 9.2</text>
+            <text x="62" y="72" class="t-meta">Ryzen 7 5800X<tspan dx="16">32 GB</tspan><tspan dx="16">ZFS</tspan></text>
+            <text x="456" y="52" class="t-addr" text-anchor="end">192.168.18.0/24</text>
+          </g>
+
+          <path class="bus" d="M40 84v246M40 180h400M40 330h400" />
+
+          <!-- clúster -->
+          <g class="group">
+            <path class="group-box" d="M62 112h396v152H62z" />
+            <text x="74" y="132" class="t-group">kubernetes 1.36</text>
+          </g>
+
+          <g class="node n1" transform="translate(110 180)">
+            <circle class="ring" r="20" /><path class="cross" d="M-28 0h-6M28 0h6M0 -28v-6M0 28v6" /><circle class="core" r="4" />
+          </g>
+          <g class="node n2" transform="translate(260 180)">
+            <circle class="ring" r="20" /><path class="cross" d="M-28 0h-6M28 0h6M0 -28v-6M0 28v6" /><circle class="core" r="4" />
+          </g>
+          <g class="node n3" transform="translate(410 180)">
+            <circle class="ring" r="20" /><path class="cross" d="M-28 0h-6M28 0h6M0 -28v-6M0 28v6" /><circle class="core" r="4" />
+          </g>
+
+          <!-- apoyo -->
+          <text x="74" y="290" class="t-group"><tspan lang="es">servicios de apoyo</tspan><tspan lang="en">support services</tspan></text>
+          <g class="node n4" transform="translate(110 330)">
+            <circle class="ring" r="20" /><circle class="core" r="4" />
+          </g>
+          <g class="node n5" transform="translate(260 330)">
+            <circle class="ring" r="20" /><circle class="core" r="4" />
+          </g>
+          <g class="node n6" transform="translate(410 330)">
+            <circle class="ring" r="20" /><circle class="core" r="4" />
+          </g>
+
+          <g class="labels">
+            <text x="110" y="232" class="t-name" text-anchor="middle">k8s-master</text>
+            <text x="110" y="251" class="t-addr" text-anchor="middle">.54</text>
+            <text x="260" y="232" class="t-name" text-anchor="middle">k8s-worker</text>
+            <text x="260" y="251" class="t-addr" text-anchor="middle">.53</text>
+            <text x="410" y="232" class="t-name" text-anchor="middle">k8s-worker-02</text>
+            <text x="410" y="251" class="t-addr" text-anchor="middle">.58</text>
+
+            <text x="110" y="382" class="t-name" text-anchor="middle">dns-01</text>
+            <text x="110" y="400" class="t-meta" text-anchor="middle"><tspan class="t-addr">.51</tspan><tspan dx="8">DNS</tspan></text>
+            <text x="260" y="382" class="t-name" text-anchor="middle">docker-01</text>
+            <text x="260" y="400" class="t-meta" text-anchor="middle"><tspan class="t-addr">.52</tspan><tspan dx="8">CI</tspan></text>
+            <text x="410" y="382" class="t-name" text-anchor="middle">pbs</text>
+            <text x="410" y="400" class="t-meta" text-anchor="middle"><tspan class="t-addr">.55</tspan><tspan dx="8" lang="es">copias</tspan><tspan dx="8" lang="en">backups</tspan></text>
+          </g>
+
+          <g class="readout">
+            <path class="readout-line" d="M40 426h440" />
+            <text x="40" y="456" class="t-meta"><tspan lang="es">fases verificadas</tspan><tspan lang="en">phases verified</tspan></text>
+            <text x="196" y="456" class="t-val">16 / 16</text>
+            <text x="290" y="456" class="t-meta"><tspan lang="es">corte al actualizar</tspan><tspan lang="en">upgrade downtime</tspan></text>
+            <text x="480" y="456" class="t-val" text-anchor="end">0 s</text>
+          </g>
+        </svg>
+        <figcaption id="labCaption">
+          <span lang="es">La plataforma de mi proyecto final, funcionando en mi casa. Esta web es uno de los servicios que sirve.</span>
+          <span lang="en">The platform from my final project, running at home. This site is one of the services it serves.</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ============ PROYECTO ESTRELLA ============ -->
+    <section class="feature" id="plataforma" aria-labelledby="plataformaTitle">
+      <div class="feature-panel">
+        <div class="feature-head">
+          <p class="kicker">
+            <span lang="es">Proyecto intermodular de ASIR</span><span lang="en">Final degree project</span>
+          </p>
+          <h2 id="plataformaTitle">
+            <span lang="es">Plataforma DevOps autoalojada</span><span lang="en">Self-hosted DevOps platform</span>
+          </h2>
+          <p class="feature-lead">
+            <span lang="es">La infraestructura que necesitaría la informática de un ayuntamiento pequeño para alojar sus propios servicios con software libre: forja de código con integración continua, gestor de contraseñas, almacenamiento de documentos y la web municipal. Toda la plataforma está definida en un repositorio: si el hardware desaparece, se reconstruye desde ahí.</span>
+            <span lang="en">The infrastructure a small town council's IT team would need to host its own services on free software: a code forge with continuous integration, a password manager, document storage and the council website. The whole platform is defined in one repository: if the hardware disappears, it gets rebuilt from there.</span>
+          </p>
         </div>
-      </div>
 
-      <div class="webhook">
-        <div class="wh-bar"><span class="wh-method">POST</span> <span class="wh-url">/api/contacto</span></div>
-        <form class="wh-form" id="whForm">
-          <div class="wf">
-            <label for="nombre">"nombre" <span class="req">*</span></label>
-            <input type="text" id="nombre" placeholder="Tu nombre" />
-            <p class="wf-err" id="err-nombre">→ campo requerido</p>
+        <dl class="results">
+          <div>
+            <dt><span lang="es">Fases completadas y verificadas</span><span lang="en">Phases completed and verified</span></dt>
+            <dd>16 / 16</dd>
           </div>
-          <div class="wf">
-            <label for="email">"email" <span class="req">*</span></label>
-            <input type="email" id="email" placeholder="tu@correo.es" />
-            <p class="wf-err" id="err-email">→ email no válido</p>
+          <div>
+            <dt><span lang="es">Corte de la web al actualizar Kubernetes nodo a nodo</span><span lang="en">Website downtime while upgrading Kubernetes node by node</span></dt>
+            <dd>0 s</dd>
           </div>
-          <div class="wf">
-            <label for="mensaje">"mensaje" <span class="req">*</span></label>
-            <textarea id="mensaje" placeholder="Escribe tu mensaje..."></textarea>
-            <p class="wf-err" id="err-mensaje">→ mínimo 10 caracteres</p>
+          <div>
+            <dt><span lang="es">Para restaurar la forja tras borrarla a propósito</span><span lang="en">To restore the code forge after deleting it on purpose</span></dt>
+            <dd>40 min</dd>
           </div>
-          <button type="submit" class="btn-post">curl -X POST → enviar</button>
-        </form>
-        <div class="wh-success" id="whSuccess">
-          <div class="code">200 OK</div>
-          <h4>Mensaje recibido</h4>
-          <p>response: message_queued · te respondo en &lt;24h</p>
+          <div>
+            <dt><span lang="es">Incidencias documentadas con su causa raíz</span><span lang="en">Incidents documented with their root cause</span></dt>
+            <dd>44</dd>
+          </div>
+        </dl>
+
+        <h3 class="flow-title"><span lang="es">Cómo llega un cambio a producción</span><span lang="en">How a change reaches production</span></h3>
+        <ol class="phases flow">
+          <li class="done"><span class="ph-no">1</span><span class="ph-name">git push</span><span class="ph-detail"><span lang="es">a la forja interna (Forgejo)</span><span lang="en">to the internal forge (Forgejo)</span></span></li>
+          <li class="done"><span class="ph-no">2</span><span class="ph-name"><span lang="es">Construcción</span><span lang="en">Build</span></span><span class="ph-detail">Forgejo Actions</span></li>
+          <li class="next"><span class="ph-no">3</span><span class="ph-name"><span lang="es">Análisis</span><span lang="en">Scan</span></span><span class="ph-detail"><span lang="es">Trivy para el flujo si hay fallos críticos</span><span lang="en">Trivy stops the flow on critical findings</span></span></li>
+          <li class="done"><span class="ph-no">4</span><span class="ph-name"><span lang="es">Registro</span><span lang="en">Registry</span></span><span class="ph-detail"><span lang="es">imagen con etiqueta de versión</span><span lang="en">image tagged with its version</span></span></li>
+          <li class="done"><span class="ph-no">5</span><span class="ph-name">Argo CD</span><span class="ph-detail"><span lang="es">sincroniza el clúster con Git</span><span lang="en">syncs the cluster with Git</span></span></li>
+          <li class="done"><span class="ph-no">6</span><span class="ph-name"><span lang="es">Reparto progresivo</span><span lang="en">Gradual rollout</span></span><span class="ph-detail"><span lang="es">y reversión desde el repositorio</span><span lang="en">with rollback from the repository</span></span></li>
+        </ol>
+
+        <div class="incident">
+          <h3><span lang="es">Una incidencia real</span><span lang="en">A real incident</span></h3>
+          <p>
+            <span lang="es">Al revisar el inventario descubrí que el servidor de copias llevaba 74 días parado: no tenía activado el arranque automático y nadie se había enterado. Desde entonces la monitorización no solo avisa de que una copia falle, sino también de que no haya ninguna reciente.</span>
+            <span lang="en">While reviewing the inventory I found the backup server had been stopped for 74 days: it wasn't set to start on boot and nobody had noticed. Since then, monitoring alerts not only when a backup fails but also when there isn't a recent one.</span>
+          </p>
+        </div>
+
+        <div class="actions">
+          <a class="btn btn-solid" href="proyectos/plataforma-devops.html">
+            <span lang="es">Leer el caso completo</span><span lang="en">Read the full case study</span>
+          </a>
+          <a class="btn btn-line" href="https://github.com/Xhinen/piasir-plataforma-devops" target="_blank" rel="noopener">
+            <span lang="es">Repositorio en GitHub</span><span lang="en">Repository on GitHub</span>
+          </a>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ====================== FOOTER ====================== -->
-  <footer>
-    <div class="foot-inner">
-      <span class="foot-logo">alberto@devops:~$</span>
-      <span class="foot-copy">© 2026 Alberto Mira Rufino · built with bash &amp; café</span>
-      <span class="foot-meta">v2.0 · last_deploy: 2026.06.06</span>
-    </div>
+    <!-- ============ EXPERIENCIA ============ -->
+    <section class="block" id="experiencia" aria-labelledby="expTitle">
+      <h2 id="expTitle"><span lang="es">Experiencia</span><span lang="en">Experience</span></h2>
+
+      <article class="job">
+        <p class="job-when">
+          <span lang="es">sept. – dic. 2026</span><span lang="en">Sep – Dec 2026</span>
+        </p>
+        <div class="job-body">
+          <h3>
+            <span lang="es">Administrador de sistemas en prácticas</span>
+            <span lang="en">Systems administrator intern</span>
+            <span class="job-org">ALTEN</span>
+          </h3>
+          <ul>
+            <li>
+              <span lang="es">Inventario centralizado de equipos con GLPI desplegado en Docker, con el agente distribuido por GPO y documentación para el cliente.</span>
+              <span lang="en">Centralised asset inventory with GLPI running in Docker, with the agent rolled out via GPO and documented for the client.</span>
+            </li>
+            <li>
+              <span lang="es">Diseño de un sistema de autoservicio para restablecer contraseñas de Active Directory.</span>
+              <span lang="en">Design of a self-service password reset system for Active Directory.</span>
+            </li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <!-- ============ OTROS PROYECTOS ============ -->
+    <section class="block" id="proyectos" aria-labelledby="projTitle">
+      <h2 id="projTitle"><span lang="es">Otros proyectos</span><span lang="en">Other projects</span></h2>
+
+      <ul class="projects">
+        <li>
+          <a href="https://github.com/Xhinen/devops-notas" target="_blank" rel="noopener">
+            <h3><span lang="es">Cuaderno de aprendizaje DevOps</span><span lang="en">DevOps learning notebook</span></h3>
+            <p>
+              <span lang="es">Los apuntes con los que preparé el proyecto: Docker, observabilidad, Kubernetes con kind y el primer clúster con kubeadm, con cada incidencia que me encontré y cómo la resolví.</span>
+              <span lang="en">The notes I used to prepare the project: Docker, observability, Kubernetes with kind and my first kubeadm cluster, with every incident I hit and how I solved it.</span>
+            </p>
+            <p class="tags">Docker, Prometheus, Grafana, Kubernetes, Gateway API</p>
+          </a>
+        </li>
+        <li>
+          <a href="proyectos/capsulecorp-server.html">
+            <h3><span lang="es">Servidor Linux empresarial</span><span lang="en">Enterprise Linux server</span></h3>
+            <p>
+              <span lang="es">Ubuntu Server 24.04 con usuarios por roles y ACL, SSH securizado, Apache y MariaDB. Scripts Bash en cron para usuarios, backups y monitorización; hardening con UFW, Fail2ban y sudo de mínimo privilegio.</span>
+              <span lang="en">Ubuntu Server 24.04 with role-based users and ACLs, hardened SSH, Apache and MariaDB. Bash scripts on cron for users, backups and monitoring; hardening with UFW, Fail2ban and least-privilege sudo.</span>
+            </p>
+            <p class="tags">Ubuntu Server, Bash, SSH, Apache, UFW, Fail2ban</p>
+          </a>
+        </li>
+        <li>
+          <a href="proyectos/mariadb-capsulecorp.html">
+            <h3><span lang="es">Administración de MariaDB</span><span lang="en">MariaDB administration</span></h3>
+            <p>
+              <span lang="es">Base de datos de 6 tablas con integridad referencial, roles de mínimo privilegio, backups automáticos con mysqldump, índices optimizados con EXPLAIN, triggers y procedimientos almacenados.</span>
+              <span lang="en">Six-table database with referential integrity, least-privilege roles, automated mysqldump backups, EXPLAIN-tuned indexes, triggers and stored procedures.</span>
+            </p>
+            <p class="tags">MariaDB, SQL, RBAC, Triggers</p>
+          </a>
+        </li>
+        <li>
+          <a href="proyectos/red-vlans-sucursal.html">
+            <h3><span lang="es">Red segmentada con VLANs</span><span lang="en">Segmented network with VLANs</span></h3>
+            <p>
+              <span lang="es">Red de una sucursal en Packet Tracer: VLANs por departamento, switch de capa 3 con enrutamiento inter-VLAN, VTP, Spanning Tree y DHCP centralizado.</span>
+              <span lang="en">Branch office network in Packet Tracer: per-department VLANs, layer 3 switch with inter-VLAN routing, VTP, Spanning Tree and centralised DHCP.</span>
+            </p>
+            <p class="tags">Cisco, VLAN, VTP, STP, DHCP</p>
+          </a>
+        </li>
+        <li>
+          <a href="proyectos/ruteo-estatico-tecnopyme.html">
+            <h3><span lang="es">Ruteo estático multisede</span><span lang="en">Multi-site static routing</span></h3>
+            <p>
+              <span lang="es">Tres sedes unidas por enlaces punto a punto y rutas estáticas, con DHCP y DNS en la sede central.</span>
+              <span lang="en">Three sites linked by point-to-point links and static routes, with DHCP and DNS at headquarters.</span>
+            </p>
+            <p class="tags">Cisco, Routing, DHCP, DNS</p>
+          </a>
+        </li>
+        <li>
+          <a href="proyectos/techshop-web.html">
+            <h3><span lang="es">Tienda web TechShop</span><span lang="en">TechShop web store</span></h3>
+            <p>
+              <span lang="es">Web de tienda con carrito y formulario validado, desplegada en un VirtualHost propio del servidor Apache del proyecto de sistemas.</span>
+              <span lang="en">Store site with a cart and a validated form, deployed on its own VirtualHost on the Apache server from the systems project.</span>
+            </p>
+            <p class="tags">HTML, CSS, JavaScript, Apache</p>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ============ PERFIL ============ -->
+    <section class="block" id="perfil" aria-labelledby="perfilTitle">
+      <h2 id="perfilTitle"><span lang="es">Perfil</span><span lang="en">Profile</span></h2>
+
+      <div class="profile">
+        <div class="profile-text">
+          <p>
+            <span lang="es">Estudio segundo de ASIR en Granada después de un bootcamp de ciberseguridad. Me interesa lo que pasa debajo de la aplicación: servidores, redes y la automatización que los mantiene en pie. Aplico mínimo privilegio por defecto, fijo versiones en vez de usar <code>latest</code> y documento cada problema que resuelvo.</span>
+            <span lang="en">I'm in my second year of ASIR (network systems administration) in Granada, after a cybersecurity bootcamp. I care about what happens below the application: servers, networks and the automation that keeps them running. I default to least privilege, pin versions instead of using <code>latest</code>, and document every problem I solve.</span>
+          </p>
+          <p>
+            <span lang="es">Busco un puesto como técnico de sistemas o administrador junior con proyección hacia DevOps o SRE, presencial en Granada o en remoto.</span>
+            <span lang="en">I'm looking for a junior systems role with a path towards DevOps or SRE, on site in Granada or remote.</span>
+          </p>
+
+          <h3><span lang="es">Formación</span><span lang="en">Education</span></h3>
+          <ul class="edu">
+            <li>
+              <span lang="es">Técnico Superior en Administración de Sistemas Informáticos en Red (ASIR)</span>
+              <span lang="en">Higher Technician in Network Systems Administration (ASIR)</span>
+            </li>
+            <li>
+              <span lang="es">Bootcamp de ciberseguridad</span>
+              <span lang="en">Cybersecurity bootcamp</span>
+            </li>
+          </ul>
+        </div>
+
+        <dl class="stack">
+          <div>
+            <dt><span lang="es">Contenedores y Kubernetes</span><span lang="en">Containers and Kubernetes</span></dt>
+            <dd>Docker, Compose, Kubernetes (kubeadm), containerd, Calico, MetalLB, Envoy Gateway, cert-manager</dd>
+          </div>
+          <div>
+            <dt><span lang="es">Entrega de software</span><span lang="en">Software delivery</span></dt>
+            <dd>Git, Forgejo Actions, Argo CD (GitOps), Trivy, Sealed Secrets, Helm</dd>
+          </div>
+          <div>
+            <dt><span lang="es">Automatización</span><span lang="en">Automation</span></dt>
+            <dd>Ansible, Bash, cron</dd>
+          </div>
+          <div>
+            <dt><span lang="es">Observabilidad y continuidad</span><span lang="en">Observability and continuity</span></dt>
+            <dd>Prometheus, Grafana, Alertmanager, Proxmox Backup Server</dd>
+          </div>
+          <div>
+            <dt><span lang="es">Sistemas</span><span lang="en">Systems</span></dt>
+            <dd>Linux (Ubuntu Server, Debian, Arch), Proxmox VE, Windows Server, Active Directory, GPO</dd>
+          </div>
+          <div>
+            <dt><span lang="es">Redes y servicios</span><span lang="en">Networking and services</span></dt>
+            <dd>Cisco IOS, VLAN, routing, DNS (BIND), DHCP, SSH, Apache, Nginx, MariaDB, PostgreSQL, UFW, Fail2ban</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============ CONTACTO ============ -->
+    <section class="block contact" id="contacto" aria-labelledby="contactTitle">
+      <div class="contact-text">
+        <h2 id="contactTitle"><span lang="es">Contacto</span><span lang="en">Contact</span></h2>
+        <p>
+          <span lang="es">Si tienes un puesto de sistemas o DevOps, o quieres saber más de algún proyecto, escríbeme. Respondo en menos de 24 horas.</span>
+          <span lang="en">If you have a systems or DevOps role, or want to know more about a project, write to me. I reply within 24 hours.</span>
+        </p>
+        <ul class="links">
+          <li><a href="mailto:alberto86.mr@proton.me">alberto86.mr@proton.me</a></li>
+          <li><a href="https://www.linkedin.com/in/alberto-m-915919198/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://github.com/Xhinen" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+
+      <!-- Formulario de contacto: lo recibe Formspree y lo reenvía al email -->
+      <form class="form" id="contactForm" action="https://formspree.io/f/mvkaklgy" method="POST" novalidate>
+        <div class="field">
+          <label for="f-nombre"><span lang="es">Nombre</span><span lang="en">Name</span></label>
+          <input id="f-nombre" name="nombre" type="text" autocomplete="name" required minlength="2" />
+        </div>
+        <div class="field">
+          <label for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="f-mensaje"><span lang="es">Mensaje</span><span lang="en">Message</span></label>
+          <textarea id="f-mensaje" name="mensaje" rows="5" required minlength="10"></textarea>
+        </div>
+        <!-- campo trampa contra spam (Formspree lo ignora si está vacío) -->
+        <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+        <button class="btn btn-solid" type="submit" id="sendBtn">
+          <span lang="es">Enviar mensaje</span><span lang="en">Send message</span>
+        </button>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <p>© 2026 Alberto Mira Rufino</p>
+    <p class="host-info">
+      <span lang="es" data-host-es>Publicada en GitHub Pages y en mi clúster Kubernetes</span>
+      <span lang="en" data-host-en>Published on GitHub Pages and on my Kubernetes cluster</span>
+    </p>
   </footer>
 
-  <!-- Script -->
-  <script src="js/index.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>

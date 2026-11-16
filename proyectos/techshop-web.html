@@ -7,34 +7,58 @@
 
   <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/styles.css" />
-  <link rel="stylesheet" href="../css/proyecto.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../css/hud.css" />
 </head>
-<body id="top">
+<body>
 
-  <div class="bg-fixed"></div>
-  <div class="bg-grid"></div>
+  <a class="skip" href="#contenido">
+    <span lang="es">Saltar al contenido</span><span lang="en">Skip to content</span>
+  </a>
 
-  <nav>
-    <a href="../index.html" class="logo">
-      <span class="logo-mark">&gt;_</span>
-      <span class="logo-text">alberto<span class="dim">@devops</span></span>
+  <header class="bar">
+    <a href="../index.html" class="brand" aria-label="Alberto Mira, inicio">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M2 10V2h8M22 2h8v8M30 22v8h-8M10 30H2v-8" />
+        <circle cx="16" cy="16" r="5" />
+      </svg>
+      <span>alberto mira</span>
     </a>
-    <a href="../index.html#projects" class="back-link">← volver a proyectos</a>
-  </nav>
 
-  <main class="detail">
+    <nav id="nav" class="nav" aria-label="Principal">
+      <a href="../index.html#plataforma"><span lang="es">Plataforma</span><span lang="en">Platform</span></a>
+      <a href="../index.html#experiencia"><span lang="es">Experiencia</span><span lang="en">Experience</span></a>
+      <a href="../index.html#proyectos"><span lang="es">Proyectos</span><span lang="en">Projects</span></a>
+      <a href="../index.html#perfil"><span lang="es">Perfil</span><span lang="en">Profile</span></a>
+      <a href="../index.html#contacto"><span lang="es">Contacto</span><span lang="en">Contact</span></a>
+    </nav>
 
-    <div class="detail-breadcrumb">
-      <a href="../index.html">~/inicio</a> / <a href="../index.html#projects">proyectos</a> / techshop-web
+    <div class="bar-tools">
+      <button class="lang" id="langToggle" type="button" aria-label="Cambiar idioma / Change language">
+        <span class="lang-opt" data-l="es">ES</span><span class="lang-opt" data-l="en">EN</span>
+      </button>
+      <button class="menu" id="menuToggle" type="button" aria-expanded="false" aria-controls="nav">
+        <span lang="es">Menú</span><span lang="en">Menu</span>
+      </button>
     </div>
+  </header>
 
-    <p class="detail-module">// Implementación de aplicaciones web</p>
+
+  <main class="detail" id="contenido">
+
+    <!-- Cabecera -->
+    <a class="back" href="../index.html#proyectos">
+      <span lang="es">Volver a proyectos</span><span lang="en">Back to projects</span>
+    </a>
+    <p class="lang-note" lang="en">This project write-up is only available in Spanish.</p>
+
+    <p class="detail-module">Implementación de aplicaciones web</p>
     <h1 class="detail-title">Tienda web TechShop</h1>
 
     <div class="detail-meta">
-      <span class="deploy-badge ok">● desplegado</span>
+      <span class="deploy-badge ok">Desplegado</span>
       <span class="dtag">HTML</span>
       <span class="dtag">CSS</span>
       <span class="dtag">JavaScript</span>
@@ -51,8 +75,8 @@
     </div>
 
     <!-- Objetivos -->
-    <section class="detail-section reveal">
-      <h2 data-no="//">Objetivos</h2>
+    <section class="detail-section">
+      <h2>Objetivos</h2>
       <ul>
         <li>Crear tres páginas (portada, producto y contacto) con una <strong>estética consistente</strong>.</li>
         <li>Mostrar un producto con su imagen, precio, descripción y botón de <strong>carrito</strong>.</li>
@@ -62,20 +86,20 @@
     </section>
 
     <!-- 1. Portada -->
-    <section class="detail-section reveal">
-      <h2 data-no="01">Portada</h2>
+    <section class="detail-section">
+      <h2>Portada</h2>
       <p>Página de inicio con cabecera, barra de navegación hacia las otras dos páginas, productos destacados con descuentos y una sección de ventajas de la tienda. Es la base que define la identidad visual del sitio.</p>
     </section>
 
     <!-- 2. Producto -->
-    <section class="detail-section reveal">
-      <h2 data-no="02">Ficha de producto</h2>
+    <section class="detail-section">
+      <h2>Ficha de producto</h2>
       <p>Página de ejemplo de un producto con imagen, nombre, precio, descripción, selector de cantidad y un botón <strong>"Agregar al carrito"</strong> que muestra una confirmación. Incluye pestañas de descripción, especificaciones y opiniones.</p>
     </section>
 
     <!-- 3. Contacto -->
-    <section class="detail-section reveal">
-      <h2 data-no="03">Formulario de contacto</h2>
+    <section class="detail-section">
+      <h2>Formulario de contacto</h2>
       <p>El requisito clave era validar que todos los campos estén rellenos usando el DOM. Con <code>getElementById</code> se comprueba nombre, email y mensaje antes de enviar, marcando en rojo los campos incorrectos:</p>
 
       <div class="code">
@@ -103,28 +127,35 @@
     </section>
 
     <!-- 4. Despliegue -->
-    <section class="detail-section reveal">
-      <h2 data-no="04">Despliegue real</h2>
+    <section class="detail-section">
+      <h2>Despliegue real</h2>
       <p>En lugar de quedarse en local, esta web se subió por <strong>SCP</strong> al servidor del proyecto de sistemas y se sirve desde un VirtualHost de Apache (<code>capsulecorp.local</code>). Es un buen ejemplo de cómo encajan dos módulos distintos: la web del módulo de aplicaciones corriendo sobre la infraestructura del módulo de sistemas.</p>
       <div class="callout">
-        <span class="ico">🔗</span>
         <p>Esta web es la que se aloja en el <a href="capsulecorp-server.html" style="color:var(--ok);">servidor capsulecorp</a> a través de su VirtualHost de Apache.</p>
       </div>
     </section>
 
     <!-- Conclusión -->
-    <section class="detail-section reveal">
-      <h2 data-no="//">Conclusión</h2>
+    <section class="detail-section">
+      <h2>Conclusión</h2>
       <p>Un proyecto más ligero que los de sistemas y redes, pero que me sirvió para repasar HTML/CSS/JS y, sobre todo, para ver el ciclo completo: desarrollar la web y luego desplegarla en un servidor propio. Esa unión entre desarrollo y operación es justo lo que me atrae de DevOps.</p>
     </section>
 
     <div class="detail-foot-nav">
-      <a href="ruteo-estatico-tecnopyme.html">← ruteo-estatico-tecnopyme</a>
-      <a href="../index.html#projects">Todos los proyectos →</a>
+      <a href="ruteo-estatico-tecnopyme.html">‹ ruteo-estatico-tecnopyme</a>
+      <a href="../index.html#proyectos">Todos los proyectos ›</a>
     </div>
 
   </main>
 
-  <script src="../js/index.js"></script>
+  <footer class="foot">
+    <p>© 2026 Alberto Mira Rufino</p>
+    <p class="host-info">
+      <span lang="es" data-host-es>Publicada en GitHub Pages y en mi clúster Kubernetes</span>
+      <span lang="en" data-host-en>Published on GitHub Pages and on my Kubernetes cluster</span>
+    </p>
+  </footer>
+
+  <script src="../js/main.js"></script>
 </body>
 </html>

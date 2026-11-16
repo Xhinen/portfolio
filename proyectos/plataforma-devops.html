@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es"
+      data-title-es="Plataforma DevOps autoalojada · Alberto Mira"
+      data-title-en="Self-hosted DevOps platform · Alberto Mira">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plataforma DevOps autoalojada · Alberto Mira</title>
+  <meta name="description" content="Proyecto intermodular de ASIR: plataforma autoalojada para un ayuntamiento con Kubernetes, Argo CD, Ansible, Forgejo y copias verificadas." />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../css/hud.css" />
+</head>
+<body>
+
+  <a class="skip" href="#contenido">
+    <span lang="es">Saltar al contenido</span><span lang="en">Skip to content</span>
+  </a>
+
+  <header class="bar">
+    <a href="../index.html" class="brand" aria-label="Alberto Mira, inicio">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M2 10V2h8M22 2h8v8M30 22v8h-8M10 30H2v-8" />
+        <circle cx="16" cy="16" r="5" />
+      </svg>
+      <span>alberto mira</span>
+    </a>
+
+    <nav id="nav" class="nav" aria-label="En esta página">
+      <a href="#plataforma"><span lang="es">Plataforma</span><span lang="en">Platform</span></a>
+      <a href="#despliegue"><span lang="es">Despliegue</span><span lang="en">Delivery</span></a>
+      <a href="#pruebas"><span lang="es">Pruebas</span><span lang="en">Tests</span></a>
+      <a href="#incidencias"><span lang="es">Incidencias</span><span lang="en">Incidents</span></a>
+      <a href="../index.html#contacto"><span lang="es">Contacto</span><span lang="en">Contact</span></a>
+    </nav>
+
+    <div class="bar-tools">
+      <button class="lang" id="langToggle" type="button" aria-label="Cambiar idioma / Change language">
+        <span class="lang-opt" data-l="es">ES</span><span class="lang-opt" data-l="en">EN</span>
+      </button>
+      <button class="menu" id="menuToggle" type="button" aria-expanded="false" aria-controls="nav">
+        <span lang="es">Menú</span><span lang="en">Menu</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="contenido">
+
+    <!-- ============ CABECERA DEL CASO ============ -->
+    <section class="case-head">
+      <a class="back" href="../index.html">
+        <span lang="es">Volver al inicio</span><span lang="en">Back to home</span>
+      </a>
+      <p class="kicker"><span lang="es">Proyecto intermodular de ASIR, curso 2026-2027</span><span lang="en">Final degree project, 2026-2027</span></p>
+      <h1><span lang="es">Plataforma DevOps autoalojada</span><span lang="en">Self-hosted DevOps platform</span></h1>
+      <p class="case-lead">
+        <span lang="es">El supuesto es el Ayuntamiento de Sierra Alta, una entidad ficticia de unos veinte empleados con dos personas en informática. He montado la infraestructura que necesitarían para alojar sus propios servicios con software libre: forja de código con integración continua, gestor de contraseñas, almacenamiento de documentos y la web municipal. No pretende competir con la nube, sino demostrar que una organización así puede operar con medios propios y procedimientos reproducibles.</span>
+        <span lang="en">The scenario is the Sierra Alta Town Council, a fictional body with about twenty employees and a two-person IT team. I built the infrastructure they'd need to host their own services on free software: a code forge with continuous integration, a password manager, document storage and the council website. It isn't meant to compete with the cloud, but to show that an organisation that size can run its services in-house with reproducible procedures.</span>
+      </p>
+
+      <dl class="facts">
+        <div><dt><span lang="es">Fases verificadas</span><span lang="en">Phases verified</span></dt><dd>16 / 16</dd></div>
+        <div><dt><span lang="es">Tareas verificadas</span><span lang="en">Tasks verified</span></dt><dd>35 / 35</dd></div>
+        <div><dt><span lang="es">Incidencias documentadas</span><span lang="en">Incidents documented</span></dt><dd>44</dd></div>
+        <div><dt><span lang="es">Coste de licencias</span><span lang="en">Licence cost</span></dt><dd>0 €</dd></div>
+      </dl>
+
+      <div class="actions">
+        <a class="btn btn-solid" href="https://github.com/Xhinen/piasir-plataforma-devops" target="_blank" rel="noopener">
+          <span lang="es">Ver el repositorio</span><span lang="en">View the repository</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ PLATAFORMA ============ -->
+    <section class="block" id="plataforma" aria-labelledby="platTitle">
+      <h2 id="platTitle"><span lang="es">La plataforma</span><span lang="en">The platform</span></h2>
+
+      <p class="intro">
+        <span lang="es">Toda la definición vive en un repositorio: los nodos se configuran con Ansible y lo que corre en Kubernetes lo aplica Argo CD desde Git. Si el hardware desaparece, la plataforma se reconstruye desde ahí.</span>
+        <span lang="en">Everything is defined in one repository: nodes are configured with Ansible, and what runs on Kubernetes is applied by Argo CD from Git. If the hardware disappears, the platform is rebuilt from there.</span>
+      </p>
+
+      <div class="table-wrap">
+        <table class="nodes layers">
+          <thead>
+            <tr>
+              <th scope="col"><span lang="es">Capa</span><span lang="en">Layer</span></th>
+              <th scope="col"><span lang="es">Componentes</span><span lang="en">Components</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row"><span lang="es">Virtualización</span><span lang="en">Virtualisation</span></th><td>Proxmox VE 9.2 <span lang="es">sobre</span><span lang="en">on</span> ZFS</td></tr>
+            <tr><th scope="row"><span lang="es">Sistemas</span><span lang="en">Systems</span></th><td><span lang="es">Ubuntu Server 24.04 LTS, configurado con Ansible</span><span lang="en">Ubuntu Server 24.04 LTS, configured with Ansible</span></td></tr>
+            <tr><th scope="row"><span lang="es">Orquestación</span><span lang="en">Orchestration</span></th><td>Kubernetes (kubeadm), Calico, MetalLB</td></tr>
+            <tr><th scope="row"><span lang="es">Entrada y certificados</span><span lang="en">Ingress and certificates</span></th><td><span lang="es">Gateway API con Envoy Gateway, cert-manager con autoridad certificadora propia</span><span lang="en">Gateway API with Envoy Gateway, cert-manager with an in-house certificate authority</span></td></tr>
+            <tr><th scope="row"><span lang="es">Servicios</span><span lang="en">Services</span></th><td><span lang="es">Forgejo, Vaultwarden, Nextcloud y la web municipal</span><span lang="en">Forgejo, Vaultwarden, Nextcloud and the council website</span></td></tr>
+            <tr><th scope="row"><span lang="es">Entrega de software</span><span lang="en">Software delivery</span></th><td>Forgejo Actions, Trivy, Argo CD</td></tr>
+            <tr><th scope="row"><span lang="es">Secretos</span><span lang="en">Secrets</span></th><td><span lang="es">Sealed Secrets: se versionan cifrados</span><span lang="en">Sealed Secrets: stored encrypted in Git</span></td></tr>
+            <tr><th scope="row"><span lang="es">Observabilidad</span><span lang="en">Observability</span></th><td>Prometheus, Grafana, Alertmanager</td></tr>
+            <tr><th scope="row"><span lang="es">Continuidad</span><span lang="en">Continuity</span></th><td>Proxmox Backup Server</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="sub"><span lang="es">Máquinas</span><span lang="en">Machines</span></h3>
+      <div class="table-wrap">
+        <table class="nodes">
+          <thead>
+            <tr>
+              <th scope="col"><span lang="es">Invitado</span><span lang="en">Guest</span></th>
+              <th scope="col">IP</th>
+              <th scope="col"><span lang="es">Tipo</span><span lang="en">Type</span></th>
+              <th scope="col"><span lang="es">Función</span><span lang="en">Role</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">k8s-master</th><td>192.168.18.54</td><td>VM</td><td><span lang="es">Plano de control y etcd</span><span lang="en">Control plane and etcd</span></td></tr>
+            <tr><th scope="row">k8s-worker</th><td>192.168.18.53</td><td>VM</td><td><span lang="es">Nodo de trabajo</span><span lang="en">Worker node</span></td></tr>
+            <tr><th scope="row">k8s-worker-02</th><td>192.168.18.58</td><td>VM</td><td><span lang="es">Nodo de trabajo, dado de alta solo con Ansible</span><span lang="en">Worker node, added using Ansible only</span></td></tr>
+            <tr><th scope="row">dns-01</th><td>192.168.18.51</td><td>LXC</td><td><span lang="es">Servidor de nombres de la zona interna</span><span lang="en">Name server for the internal zone</span></td></tr>
+            <tr><th scope="row">docker-01</th><td>192.168.18.52</td><td>VM</td><td><span lang="es">Construcción de imágenes y ejecutor de CI</span><span lang="en">Image builds and CI runner</span></td></tr>
+            <tr><th scope="row">pbs</th><td>192.168.18.55</td><td>LXC</td><td><span lang="es">Servidor de copias de seguridad</span><span lang="en">Backup server</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============ DESPLIEGUE ============ -->
+    <section class="block" id="despliegue" aria-labelledby="flowTitle">
+      <h2 id="flowTitle"><span lang="es">Cómo llega un cambio a producción</span><span lang="en">How a change reaches production</span></h2>
+
+      <ol class="phase-log">
+        <li class="done">
+          <div class="pl-side"><span class="pl-no">1</span></div>
+          <div class="pl-main">
+            <h3><span lang="es">Push a la forja interna</span><span lang="en">Push to the internal forge</span></h3>
+            <p><span lang="es">El código vive en Forgejo, alojado en el propio clúster con su base de datos PostgreSQL y su registro de imágenes.</span><span lang="en">The code lives in Forgejo, hosted on the cluster itself with its PostgreSQL database and image registry.</span></p>
+          </div>
+        </li>
+        <li class="done">
+          <div class="pl-side"><span class="pl-no">2</span></div>
+          <div class="pl-main">
+            <h3><span lang="es">Construcción y análisis</span><span lang="en">Build and scan</span></h3>
+            <p><span lang="es">Forgejo Actions construye la imagen en un ejecutor instalado con Ansible y Trivy la analiza. Si encuentra vulnerabilidades críticas, el flujo se detiene y no se publica nada.</span><span lang="en">Forgejo Actions builds the image on a runner installed with Ansible, and Trivy scans it. If it finds critical vulnerabilities, the flow stops and nothing gets published.</span></p>
+            <p class="decision"><span lang="es">El primer análisis del portfolio encontró 8 vulnerabilidades críticas en la imagen base de Debian. Al cambiar a una base Alpine bajaron a 0.</span><span lang="en">The first scan of the portfolio found 8 critical vulnerabilities in the Debian base image. Switching to an Alpine base brought them down to 0.</span></p>
+          </div>
+        </li>
+        <li class="done">
+          <div class="pl-side"><span class="pl-no">3</span></div>
+          <div class="pl-main">
+            <h3><span lang="es">Publicación y actualización del manifiesto</span><span lang="en">Publish and update the manifest</span></h3>
+            <p><span lang="es">La imagen se publica en el registro interno con su etiqueta de versión. Cambiar esa etiqueta en el repositorio de manifiestos es, a propósito, un paso manual: es la aprobación antes de pasar a producción.</span><span lang="en">The image is pushed to the internal registry with its version tag. Changing that tag in the manifests repository is a deliberate manual step: it's the approval before production.</span></p>
+          </div>
+        </li>
+        <li class="done">
+          <div class="pl-side"><span class="pl-no">4</span></div>
+          <div class="pl-main">
+            <h3><span lang="es">Argo CD sincroniza</span><span lang="en">Argo CD syncs</span></h3>
+            <p><span lang="es">Argo CD lee los manifiestos de Git, detecta la diferencia y reconcilia el clúster con ellos. Los secretos viajan cifrados con Sealed Secrets y solo se descifran dentro del clúster.</span><span lang="en">Argo CD reads the manifests from Git, detects the difference and reconciles the cluster against them. Secrets travel encrypted with Sealed Secrets and are only decrypted inside the cluster.</span></p>
+          </div>
+        </li>
+        <li class="done">
+          <div class="pl-side"><span class="pl-no">5</span></div>
+          <div class="pl-main">
+            <h3><span lang="es">Reparto progresivo y reversión</span><span lang="en">Gradual rollout and rollback</span></h3>
+            <p><span lang="es">La pasarela reparte el tráfico entre la versión anterior y la nueva, y lo observo en Grafana. Para volver atrás basta con revertir el commit: Argo CD devuelve todo el tráfico a la versión 1.</span><span lang="en">The gateway splits traffic between the old and new versions, and I watch it in Grafana. Rolling back just means reverting the commit: Argo CD sends all traffic back to version 1.</span></p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ============ PRUEBAS ============ -->
+    <section class="block" id="pruebas" aria-labelledby="testTitle">
+      <h2 id="testTitle"><span lang="es">Pruebas que lo demuestran</span><span lang="en">Tests that prove it</span></h2>
+
+      <div class="tests">
+        <article class="test">
+          <h3><span lang="es">Actualizar Kubernetes sin cortar la web</span><span lang="en">Upgrading Kubernetes without taking the site down</span></h3>
+          <p><span lang="es">De la versión 1.36.2 a la 1.36.6, drenando los nodos de uno en uno. Una sonda por segundo contra los seis servicios mientras se reiniciaba el plano de control.</span><span lang="en">From 1.36.2 to 1.36.6, draining nodes one at a time. One probe per second against all six services while the control plane restarted.</span></p>
+          <dl class="readings">
+            <div><dt><span lang="es">Corte de la web</span><span lang="en">Website downtime</span></dt><dd>0 s</dd></div>
+            <div><dt><span lang="es">Sondas sin fallo</span><span lang="en">Probes without a failure</span></dt><dd>922</dd></div>
+          </dl>
+          <p class="note"><span lang="es">Los tres servicios con datos sí se cortaron unos seis minutos, porque sus volúmenes están atados al nodo donde se crearon. Está medido y explicado en la documentación.</span><span lang="en">The three stateful services did go down for about six minutes, because their volumes are tied to the node where they were created. It's measured and explained in the docs.</span></p>
+        </article>
+
+        <article class="test">
+          <h3><span lang="es">Destruir la forja y restaurarla</span><span lang="en">Destroying the forge and restoring it</span></h3>
+          <p><span lang="es">Borré a propósito todo el espacio de nombres de Forgejo. La estructura se reconstruyó desde el repositorio y los datos desde la copia de seguridad, y comprobé que los repositorios se podían clonar.</span><span lang="en">I deliberately deleted Forgejo's entire namespace. Its structure was rebuilt from the repository and its data from the backup, and I checked the repositories could be cloned.</span></p>
+          <dl class="readings">
+            <div><dt><span lang="es">Tiempo de recuperación</span><span lang="en">Recovery time</span></dt><dd>40 min</dd></div>
+            <div><dt><span lang="es">Web durante la caída</span><span lang="en">Website during the outage</span></dt><dd>HTTP 200</dd></div>
+          </dl>
+          <p class="note"><span lang="es">La pérdida de datos medida fue de 15 horas, dentro de las 24 horas fijadas en el diseño.</span><span lang="en">Measured data loss was 15 hours, within the 24 hours set in the design.</span></p>
+        </article>
+
+        <article class="test">
+          <h3><span lang="es">Dar de alta un nodo sin tocarlo a mano</span><span lang="en">Adding a node without touching it by hand</span></h3>
+          <p><span lang="es">El nodo k8s-worker-02 se incorporó al clúster añadiendo una línea al inventario y ejecutando un playbook de Ansible, sin ningún paso manual.</span><span lang="en">The k8s-worker-02 node joined the cluster by adding one line to the inventory and running an Ansible playbook, with no manual steps.</span></p>
+          <dl class="readings">
+            <div><dt><span lang="es">Segunda ejecución</span><span lang="en">Second run</span></dt><dd>32 <span lang="es">tareas</span><span lang="en">tasks</span></dd></div>
+            <div><dt><span lang="es">Cambios</span><span lang="en">Changes</span></dt><dd>0</dd></div>
+          </dl>
+          <p class="note"><span lang="es">Los roles son idempotentes: volver a ejecutarlos tarda catorce segundos y no cambia nada, así que se pueden usar para corregir desviaciones.</span><span lang="en">The roles are idempotent: running them again takes fourteen seconds and changes nothing, so they can be used to fix drift.</span></p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ INCIDENCIAS ============ -->
+    <section class="block" id="incidencias" aria-labelledby="incTitle">
+      <h2 id="incTitle"><span lang="es">Incidencias resueltas</span><span lang="en">Incidents solved</span></h2>
+      <p class="intro">
+        <span lang="es">Documenté 44, cada una con su causa raíz y la decisión que tomé. Estas son cuatro de las que más aprendí.</span>
+        <span lang="en">I documented 44, each with its root cause and the decision I made. These are four I learned the most from.</span>
+      </p>
+
+      <div class="incidents">
+        <article class="inc">
+          <h3><span lang="es">Las copias llevaban 74 días sin hacerse</span><span lang="en">Backups hadn't run for 74 days</span></h3>
+          <dl>
+            <dt><span lang="es">Síntoma</span><span lang="en">Symptom</span></dt>
+            <dd><span lang="es">Los únicos snapshots eran de julio y el almacén de copias figuraba como inactivo.</span><span lang="en">The only snapshots were from July and the backup store showed as inactive.</span></dd>
+            <dt><span lang="es">Causa</span><span lang="en">Cause</span></dt>
+            <dd><span lang="es">El contenedor de Proxmox Backup Server no arrancaba solo tras reiniciar el servidor.</span><span lang="en">The Proxmox Backup Server container didn't start on its own after a host reboot.</span></dd>
+            <dt><span lang="es">Solución</span><span lang="en">Fix</span></dt>
+            <dd><span lang="es"><code>pct set 104 -onboot 1</code> y una alerta nueva que avisa si no hay ninguna copia reciente, no solo si una falla.</span><span lang="en"><code>pct set 104 -onboot 1</code>, plus a new alert that fires when there's no recent backup, not only when one fails.</span></dd>
+          </dl>
+        </article>
+
+        <article class="inc">
+          <h3><span lang="es">Distribuí la clave SSH privada por error</span><span lang="en">I shared the private SSH key by mistake</span></h3>
+          <dl>
+            <dt><span lang="es">Síntoma</span><span lang="en">Symptom</span></dt>
+            <dd><span lang="es"><code>authorized_keys</code> contenía <code>BEGIN OPENSSH PRIVATE KEY</code>.</span><span lang="en"><code>authorized_keys</code> contained <code>BEGIN OPENSSH PRIVATE KEY</code>.</span></dd>
+            <dt><span lang="es">Causa</span><span lang="en">Cause</span></dt>
+            <dd><span lang="es">Al servir <code>~/.ssh</code> por HTTP descargué <code>id_ed25519</code> en vez de <code>id_ed25519.pub</code>.</span><span lang="en">While serving <code>~/.ssh</code> over HTTP I downloaded <code>id_ed25519</code> instead of <code>id_ed25519.pub</code>.</span></dd>
+            <dt><span lang="es">Solución</span><span lang="en">Fix</span></dt>
+            <dd><span lang="es">Di la clave por comprometida: par nuevo con frase de paso y <code>authorized_keys</code> sobrescrito en todos los nodos.</span><span lang="en">I treated the key as compromised: a new passphrase-protected pair and <code>authorized_keys</code> overwritten on every node.</span></dd>
+          </dl>
+        </article>
+
+        <article class="inc">
+          <h3><span lang="es">La imagen del portfolio no pasaba el análisis</span><span lang="en">The portfolio image failed the scan</span></h3>
+          <dl>
+            <dt><span lang="es">Síntoma</span><span lang="en">Symptom</span></dt>
+            <dd><span lang="es">Trivy detuvo el flujo: <code>Total: 8 (CRITICAL: 8)</code>.</span><span lang="en">Trivy stopped the flow: <code>Total: 8 (CRITICAL: 8)</code>.</span></dd>
+            <dt><span lang="es">Causa</span><span lang="en">Cause</span></dt>
+            <dd><span lang="es">Paquetes vulnerables de la imagen base de Debian, como libgnutls.</span><span lang="en">Vulnerable packages in the Debian base image, such as libgnutls.</span></dd>
+            <dt><span lang="es">Solución</span><span lang="en">Fix</span></dt>
+            <dd><span lang="es">Reconstruir sobre Alpine 3.24: 0 vulnerabilidades críticas.</span><span lang="en">Rebuild on Alpine 3.24: 0 critical vulnerabilities.</span></dd>
+          </dl>
+        </article>
+
+        <article class="inc">
+          <h3><span lang="es">El medidor se paró antes de la prueba</span><span lang="en">The probe stopped before the test</span></h3>
+          <dl>
+            <dt><span lang="es">Síntoma</span><span lang="en">Symptom</span></dt>
+            <dd><span lang="es">El script de disponibilidad no tenía datos de la ventana de mantenimiento.</span><span lang="en">The availability script had no data for the maintenance window.</span></dd>
+            <dt><span lang="es">Causa</span><span lang="en">Cause</span></dt>
+            <dd><span lang="es">Se había detenido dieciocho minutos antes y no lo comprobé.</span><span lang="en">It had stopped eighteen minutes earlier and I didn't check.</span></dd>
+            <dt><span lang="es">Solución</span><span lang="en">Fix</span></dt>
+            <dd><span lang="es">Reconstruí la cronología desde Prometheus, que seguía funcionando en el otro nodo, con consultas PromQL.</span><span lang="en">I rebuilt the timeline from Prometheus, still running on the other node, using PromQL queries.</span></dd>
+          </dl>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ LIMITACIONES ============ -->
+    <section class="block" aria-labelledby="limTitle">
+      <h2 id="limTitle"><span lang="es">Limitaciones conocidas</span><span lang="en">Known limitations</span></h2>
+      <ul class="limits">
+        <li><span lang="es">El plano de control está en un solo nodo. En producción real harían falta tres por el quórum de etcd.</span><span lang="en">The control plane runs on a single node. A real production setup would need three for etcd quorum.</span></li>
+        <li><span lang="es">Los discos no están en espejo: datos y copias van en discos distintos, pero ninguno tiene redundancia.</span><span lang="en">Disks aren't mirrored: data and backups are on separate disks, but neither is redundant.</span></li>
+        <li><span lang="es">Las copias no salen del edificio, así que la regla 3-2-1 queda incompleta.</span><span lang="en">Backups don't leave the building, so the 3-2-1 rule isn't fully met.</span></li>
+        <li><span lang="es">Los volúmenes <code>local-path</code> están atados al nodo, y eso explica los seis minutos de corte de los servicios con datos.</span><span lang="en"><code>local-path</code> volumes are tied to their node, which explains the six-minute outage of the stateful services.</span></li>
+      </ul>
+    </section>
+
+    <!-- ============ ESTA WEB ============ -->
+    <section class="block case-end" aria-labelledby="webTitle">
+      <h2 id="webTitle"><span lang="es">Esta web dentro del proyecto</span><span lang="en">This site inside the project</span></h2>
+      <p>
+        <span lang="es">En la plataforma, este portfolio hace de web municipal. Lo que se evalúa es la infraestructura que la sirve, así que reutilizo una web real en lugar de inventar otra. Corre en el clúster con tres réplicas repartidas entre nodos, un presupuesto de interrupción que mantiene al menos una disponible durante el mantenimiento y políticas de red que limitan quién puede hablar con ella. También está publicada en GitHub Pages, para que siga accesible cuando apago el clúster.</span>
+        <span lang="en">On the platform, this portfolio plays the council website. What's being assessed is the infrastructure serving it, so I reuse a real site instead of making one up. It runs on the cluster with three replicas spread across nodes, a disruption budget that keeps at least one available during maintenance, and network policies that limit who can talk to it. It's also published on GitHub Pages so it stays reachable when the cluster is off.</span>
+      </p>
+      <p>
+        <span lang="es">Antes del proyecto preparé cada pieza por separado en mi <a href="https://github.com/Xhinen/devops-notas" target="_blank" rel="noopener">cuaderno de aprendizaje DevOps</a>.</span>
+        <span lang="en">Before the project I practised each piece separately in my <a href="https://github.com/Xhinen/devops-notas" target="_blank" rel="noopener">DevOps learning notebook</a>.</span>
+      </p>
+      <div class="actions">
+        <a class="btn btn-solid" href="../index.html#contacto"><span lang="es">Contactar</span><span lang="en">Get in touch</span></a>
+        <a class="btn btn-line" href="../index.html#proyectos"><span lang="es">Ver otros proyectos</span><span lang="en">See other projects</span></a>
+      </div>
+    </section>
+
+  </main>
+
+
+  <footer class="foot">
+    <p>© 2026 Alberto Mira Rufino</p>
+    <p class="host-info">
+      <span lang="es" data-host-es>Publicada en GitHub Pages y en mi clúster Kubernetes</span>
+      <span lang="en" data-host-en>Published on GitHub Pages and on my Kubernetes cluster</span>
+    </p>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

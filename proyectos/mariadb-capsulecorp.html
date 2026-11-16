@@ -7,34 +7,58 @@
 
   <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/styles.css" />
-  <link rel="stylesheet" href="../css/proyecto.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../css/hud.css" />
 </head>
-<body id="top">
+<body>
 
-  <div class="bg-fixed"></div>
-  <div class="bg-grid"></div>
+  <a class="skip" href="#contenido">
+    <span lang="es">Saltar al contenido</span><span lang="en">Skip to content</span>
+  </a>
 
-  <nav>
-    <a href="../index.html" class="logo">
-      <span class="logo-mark">&gt;_</span>
-      <span class="logo-text">alberto<span class="dim">@devops</span></span>
+  <header class="bar">
+    <a href="../index.html" class="brand" aria-label="Alberto Mira, inicio">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M2 10V2h8M22 2h8v8M30 22v8h-8M10 30H2v-8" />
+        <circle cx="16" cy="16" r="5" />
+      </svg>
+      <span>alberto mira</span>
     </a>
-    <a href="../index.html#projects" class="back-link">← volver a proyectos</a>
-  </nav>
 
-  <main class="detail">
+    <nav id="nav" class="nav" aria-label="Principal">
+      <a href="../index.html#plataforma"><span lang="es">Plataforma</span><span lang="en">Platform</span></a>
+      <a href="../index.html#experiencia"><span lang="es">Experiencia</span><span lang="en">Experience</span></a>
+      <a href="../index.html#proyectos"><span lang="es">Proyectos</span><span lang="en">Projects</span></a>
+      <a href="../index.html#perfil"><span lang="es">Perfil</span><span lang="en">Profile</span></a>
+      <a href="../index.html#contacto"><span lang="es">Contacto</span><span lang="en">Contact</span></a>
+    </nav>
 
-    <div class="detail-breadcrumb">
-      <a href="../index.html">~/inicio</a> / <a href="../index.html#projects">proyectos</a> / mariadb-capsulecorp
+    <div class="bar-tools">
+      <button class="lang" id="langToggle" type="button" aria-label="Cambiar idioma / Change language">
+        <span class="lang-opt" data-l="es">ES</span><span class="lang-opt" data-l="en">EN</span>
+      </button>
+      <button class="menu" id="menuToggle" type="button" aria-expanded="false" aria-controls="nav">
+        <span lang="es">Menú</span><span lang="en">Menu</span>
+      </button>
     </div>
+  </header>
 
-    <p class="detail-module">// ASGBD · Administración de bases de datos</p>
+
+  <main class="detail" id="contenido">
+
+    <!-- Cabecera -->
+    <a class="back" href="../index.html#proyectos">
+      <span lang="es">Volver a proyectos</span><span lang="en">Back to projects</span>
+    </a>
+    <p class="lang-note" lang="en">This project write-up is only available in Spanish.</p>
+
+    <p class="detail-module">ASGBD · Administración de bases de datos</p>
     <h1 class="detail-title">Administración avanzada de MariaDB</h1>
 
     <div class="detail-meta">
-      <span class="deploy-badge ok">● completado</span>
+      <span class="deploy-badge ok">Completado</span>
       <span class="dtag">MariaDB</span>
       <span class="dtag">SQL</span>
       <span class="dtag">RBAC</span>
@@ -52,8 +76,8 @@
     </div>
 
     <!-- Objetivos -->
-    <section class="detail-section reveal">
-      <h2 data-no="//">Objetivos</h2>
+    <section class="detail-section">
+      <h2>Objetivos</h2>
       <ul>
         <li>Diseñar un <strong>modelo relacional</strong> coherente con claves foráneas e integridad referencial.</li>
         <li>Aplicar <strong>seguridad basada en roles (RBAC)</strong> con el principio de mínimo privilegio.</li>
@@ -63,8 +87,8 @@
     </section>
 
     <!-- 1. Instalación -->
-    <section class="detail-section reveal">
-      <h2 data-no="01">Instalación y configuración</h2>
+    <section class="detail-section">
+      <h2>Instalación y configuración</h2>
       <p>Tras instalar MariaDB se ejecuta <strong>mysql_secure_installation</strong> (eliminar usuarios anónimos, bloquear root remoto, borrar la BD de prueba). La configuración del servidor se afina en su fichero principal:</p>
 
       <div class="code">
@@ -81,8 +105,8 @@ long_query_time        = 2</pre>
     </section>
 
     <!-- 2. Modelo de datos -->
-    <section class="detail-section reveal">
-      <h2 data-no="02">Modelo de datos</h2>
+    <section class="detail-section">
+      <h2>Modelo de datos</h2>
       <p>La base de datos se compone de 6 tablas que cubren las necesidades de la empresa:</p>
 
       <table class="info-table">
@@ -110,8 +134,8 @@ long_query_time        = 2</pre>
     </section>
 
     <!-- 3. Roles -->
-    <section class="detail-section reveal">
-      <h2 data-no="03">Seguridad basada en roles (RBAC)</h2>
+    <section class="detail-section">
+      <h2>Seguridad basada en roles (RBAC)</h2>
       <p>En lugar de asignar permisos usuario por usuario, se definen 4 roles (<strong>rol_dba</strong>, <strong>rol_desarrollo</strong>, <strong>rol_direccion</strong>, <strong>rol_soporte</strong>) y se asignan a los usuarios. Así, añadir un empleado nuevo es trivial y se reducen los errores.</p>
 
       <div class="code">
@@ -131,8 +155,8 @@ SET DEFAULT ROLE rol_desarrollo FOR 'carlos_dev'@'%';</pre>
     </section>
 
     <!-- 4. Backups -->
-    <section class="detail-section reveal">
-      <h2 data-no="04">Copias de seguridad</h2>
+    <section class="detail-section">
+      <h2>Copias de seguridad</h2>
       <p>Las copias se realizan con <strong>mysqldump</strong> y se automatizan con un script programado en cron, que además limpia los backups con más de 30 días.</p>
 
       <div class="code">
@@ -150,8 +174,8 @@ SET DEFAULT ROLE rol_desarrollo FOR 'carlos_dev'@'%';</pre>
     </section>
 
     <!-- 5. Consultas -->
-    <section class="detail-section reveal">
-      <h2 data-no="05">Consultas avanzadas y optimización</h2>
+    <section class="detail-section">
+      <h2>Consultas avanzadas y optimización</h2>
       <p>Se crean índices en las columnas usadas en <code>WHERE</code> y <code>JOIN</code>, y se verifican los planes de ejecución con <strong>EXPLAIN</strong>. Ejemplo con <code>JOIN</code>, <code>GROUP BY</code> y <code>HAVING</code> (empleados en más de un proyecto):</p>
 
       <div class="code">
@@ -167,8 +191,8 @@ ORDER BY num_proyectos DESC;</pre>
     </section>
 
     <!-- 6. Automatización -->
-    <section class="detail-section reveal">
-      <h2 data-no="06">Automatización: triggers y funciones</h2>
+    <section class="detail-section">
+      <h2>Automatización: triggers y funciones</h2>
       <p>La lógica de negocio se automatiza dentro de la propia base de datos: un trigger audita los cambios de salario, otro <strong>bloquea la inserción de un gasto si supera el presupuesto</strong> del proyecto (con <code>SIGNAL</code>), más un procedimiento de informe y una función de porcentaje consumido.</p>
 
       <div class="code">
@@ -190,27 +214,34 @@ END</pre>
     </section>
 
     <!-- Retos -->
-    <section class="detail-section reveal">
-      <h2 data-no="//">Retos y aprendizajes</h2>
+    <section class="detail-section">
+      <h2>Retos y aprendizajes</h2>
       <div class="callout">
-        <span class="ico">💡</span>
         <p>Los usuarios se conectaban pero "parecía" que no tenían permisos, aunque el rol estuviera concedido. La razón: MariaDB <strong>no activa los roles automáticamente</strong>. La solución fue usar <code>SET DEFAULT ROLE</code> para cada usuario. Un detalle pequeño que enseña a leer bien la documentación oficial.</p>
       </div>
     </section>
 
     <!-- Conclusión -->
-    <section class="detail-section reveal">
-      <h2 data-no="//">Conclusión</h2>
+    <section class="detail-section">
+      <h2>Conclusión</h2>
       <p>Una práctica muy completa que va del diseño del modelo hasta la automatización con triggers, pasando por seguridad, backups y optimización. Me ayudó a entender por qué las bases de datos son tan estrictas con permisos e integridad, y reforzó mi base de SQL para el día a día como administrador.</p>
     </section>
 
     <div class="detail-foot-nav">
-      <a href="capsulecorp-server.html">← capsulecorp-server</a>
-      <a href="red-vlans-sucursal.html">red-vlans-sucursal →</a>
+      <a href="capsulecorp-server.html">‹ capsulecorp-server</a>
+      <a href="red-vlans-sucursal.html">red-vlans-sucursal ›</a>
     </div>
 
   </main>
 
-  <script src="../js/index.js"></script>
+  <footer class="foot">
+    <p>© 2026 Alberto Mira Rufino</p>
+    <p class="host-info">
+      <span lang="es" data-host-es>Publicada en GitHub Pages y en mi clúster Kubernetes</span>
+      <span lang="en" data-host-en>Published on GitHub Pages and on my Kubernetes cluster</span>
+    </p>
+  </footer>
+
+  <script src="../js/main.js"></script>
 </body>
 </html>

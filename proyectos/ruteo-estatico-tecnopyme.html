@@ -7,34 +7,58 @@
 
   <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/styles.css" />
-  <link rel="stylesheet" href="../css/proyecto.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../css/hud.css" />
 </head>
-<body id="top">
+<body>
 
-  <div class="bg-fixed"></div>
-  <div class="bg-grid"></div>
+  <a class="skip" href="#contenido">
+    <span lang="es">Saltar al contenido</span><span lang="en">Skip to content</span>
+  </a>
 
-  <nav>
-    <a href="../index.html" class="logo">
-      <span class="logo-mark">&gt;_</span>
-      <span class="logo-text">alberto<span class="dim">@devops</span></span>
+  <header class="bar">
+    <a href="../index.html" class="brand" aria-label="Alberto Mira, inicio">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M2 10V2h8M22 2h8v8M30 22v8h-8M10 30H2v-8" />
+        <circle cx="16" cy="16" r="5" />
+      </svg>
+      <span>alberto mira</span>
     </a>
-    <a href="../index.html#projects" class="back-link">← volver a proyectos</a>
-  </nav>
 
-  <main class="detail">
+    <nav id="nav" class="nav" aria-label="Principal">
+      <a href="../index.html#plataforma"><span lang="es">Plataforma</span><span lang="en">Platform</span></a>
+      <a href="../index.html#experiencia"><span lang="es">Experiencia</span><span lang="en">Experience</span></a>
+      <a href="../index.html#proyectos"><span lang="es">Proyectos</span><span lang="en">Projects</span></a>
+      <a href="../index.html#perfil"><span lang="es">Perfil</span><span lang="en">Profile</span></a>
+      <a href="../index.html#contacto"><span lang="es">Contacto</span><span lang="en">Contact</span></a>
+    </nav>
 
-    <div class="detail-breadcrumb">
-      <a href="../index.html">~/inicio</a> / <a href="../index.html#projects">proyectos</a> / ruteo-estatico-tecnopyme
+    <div class="bar-tools">
+      <button class="lang" id="langToggle" type="button" aria-label="Cambiar idioma / Change language">
+        <span class="lang-opt" data-l="es">ES</span><span class="lang-opt" data-l="en">EN</span>
+      </button>
+      <button class="menu" id="menuToggle" type="button" aria-expanded="false" aria-controls="nav">
+        <span lang="es">Menú</span><span lang="en">Menu</span>
+      </button>
     </div>
+  </header>
 
-    <p class="detail-module">// Administración de redes</p>
+
+  <main class="detail" id="contenido">
+
+    <!-- Cabecera -->
+    <a class="back" href="../index.html#proyectos">
+      <span lang="es">Volver a proyectos</span><span lang="en">Back to projects</span>
+    </a>
+    <p class="lang-note" lang="en">This project write-up is only available in Spanish.</p>
+
+    <p class="detail-module">Administración de redes</p>
     <h1 class="detail-title">Ruteo estático multi-sede</h1>
 
     <div class="detail-meta">
-      <span class="deploy-badge ok">● completado</span>
+      <span class="deploy-badge ok">Completado</span>
       <span class="dtag">Cisco</span>
       <span class="dtag">Routing</span>
       <span class="dtag">DHCP</span>
@@ -51,8 +75,8 @@
     </div>
 
     <!-- Topología -->
-    <section class="detail-section reveal">
-      <h2 data-no="//">Estructura de la red</h2>
+    <section class="detail-section">
+      <h2>Estructura de la red</h2>
       <p>La sede central (R1) es el núcleo y da servicios a su LAN. Las dos sucursales (R2 y R3) se conectan en serie mediante enlaces punto a punto y actúan como routers intermedios.</p>
 
       <div class="arch">
@@ -80,8 +104,8 @@
     </section>
 
     <!-- Objetivos -->
-    <section class="detail-section reveal">
-      <h2 data-no="//">Objetivos</h2>
+    <section class="detail-section">
+      <h2>Objetivos</h2>
       <ul>
         <li>Configurar <strong>ruteo estático</strong> en los tres routers para conectar todas las LAN.</li>
         <li>Ofrecer <strong>DHCP</strong> desde la sede central a su red local.</li>
@@ -91,8 +115,8 @@
     </section>
 
     <!-- 1. Ruteo -->
-    <section class="detail-section reveal">
-      <h2 data-no="01">Ruteo estático</h2>
+    <section class="detail-section">
+      <h2>Ruteo estático</h2>
       <p>Cada router necesita conocer las redes que no tiene conectadas directamente. Desde R1, las redes de las sucursales se alcanzan a través de R2:</p>
 
       <div class="code">
@@ -108,8 +132,8 @@ R3(config)# ip route 192.168.20.0 255.255.255.0 192.168.23.1</pre>
     </section>
 
     <!-- 2. DHCP -->
-    <section class="detail-section reveal">
-      <h2 data-no="02">DHCP centralizado</h2>
+    <section class="detail-section">
+      <h2>DHCP centralizado</h2>
       <p>R1 hospeda los pools DHCP de las tres LAN. Se excluyen las primeras 20 direcciones de cada red (reservadas para equipos con IP estática). R2 y R3 reenvían las peticiones de sus LAN a R1 con <code>ip helper-address</code>.</p>
 
       <div class="code">
@@ -126,24 +150,32 @@ R2(config-if)# ip helper-address 192.168.10.1</pre>
     </section>
 
     <!-- 3. DNS -->
-    <section class="detail-section reveal">
-      <h2 data-no="03">Servicio DNS</h2>
+    <section class="detail-section">
+      <h2>Servicio DNS</h2>
       <p>El servidor de la sede central resuelve nombres internos bajo el dominio <code>www.tecnopyme.com</code>, y se verifica la resolución desde las tres sedes mediante pruebas de ping y consulta por nombre.</p>
     </section>
 
     <!-- Conclusión -->
-    <section class="detail-section reveal">
-      <h2 data-no="//">Conclusión</h2>
+    <section class="detail-section">
+      <h2>Conclusión</h2>
       <p>Un escenario clásico de WAN entre sedes que afianza el ruteo estático, el reenvío de DHCP entre redes y la resolución DNS. Comprender bien el enrutamiento manual es la mejor base antes de pasar a protocolos dinámicos y a redes en la nube.</p>
     </section>
 
     <div class="detail-foot-nav">
-      <a href="red-vlans-sucursal.html">← red-vlans-sucursal</a>
-      <a href="techshop-web.html">techshop-web →</a>
+      <a href="red-vlans-sucursal.html">‹ red-vlans-sucursal</a>
+      <a href="techshop-web.html">techshop-web ›</a>
     </div>
 
   </main>
 
-  <script src="../js/index.js"></script>
+  <footer class="foot">
+    <p>© 2026 Alberto Mira Rufino</p>
+    <p class="host-info">
+      <span lang="es" data-host-es>Publicada en GitHub Pages y en mi clúster Kubernetes</span>
+      <span lang="en" data-host-en>Published on GitHub Pages and on my Kubernetes cluster</span>
+    </p>
+  </footer>
+
+  <script src="../js/main.js"></script>
 </body>
 </html>

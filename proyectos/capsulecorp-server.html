@@ -8,41 +8,60 @@
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
 
-  <!-- Fuentes -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
 
-  <!-- Estilos: base + detalle -->
-  <link rel="stylesheet" href="../css/styles.css" />
-  <link rel="stylesheet" href="../css/proyecto.css" />
+  <link rel="stylesheet" href="../css/hud.css" />
 </head>
-<body id="top">
+<body>
 
-  <div class="bg-fixed"></div>
-  <div class="bg-grid"></div>
+  <a class="skip" href="#contenido">
+    <span lang="es">Saltar al contenido</span><span lang="en">Skip to content</span>
+  </a>
 
-  <!-- ====================== NAV ====================== -->
-  <nav>
-    <a href="../index.html" class="logo">
-      <span class="logo-mark">&gt;_</span>
-      <span class="logo-text">alberto<span class="dim">@devops</span></span>
+  <header class="bar">
+    <a href="../index.html" class="brand" aria-label="Alberto Mira, inicio">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M2 10V2h8M22 2h8v8M30 22v8h-8M10 30H2v-8" />
+        <circle cx="16" cy="16" r="5" />
+      </svg>
+      <span>alberto mira</span>
     </a>
-    <a href="../index.html#projects" class="back-link">← volver a proyectos</a>
-  </nav>
+
+    <nav id="nav" class="nav" aria-label="Principal">
+      <a href="../index.html#plataforma"><span lang="es">Plataforma</span><span lang="en">Platform</span></a>
+      <a href="../index.html#experiencia"><span lang="es">Experiencia</span><span lang="en">Experience</span></a>
+      <a href="../index.html#proyectos"><span lang="es">Proyectos</span><span lang="en">Projects</span></a>
+      <a href="../index.html#perfil"><span lang="es">Perfil</span><span lang="en">Profile</span></a>
+      <a href="../index.html#contacto"><span lang="es">Contacto</span><span lang="en">Contact</span></a>
+    </nav>
+
+    <div class="bar-tools">
+      <button class="lang" id="langToggle" type="button" aria-label="Cambiar idioma / Change language">
+        <span class="lang-opt" data-l="es">ES</span><span class="lang-opt" data-l="en">EN</span>
+      </button>
+      <button class="menu" id="menuToggle" type="button" aria-expanded="false" aria-controls="nav">
+        <span lang="es">Menú</span><span lang="en">Menu</span>
+      </button>
+    </div>
+  </header>
+
 
   <!-- ====================== CONTENIDO ====================== -->
-  <main class="detail">
+  <main class="detail" id="contenido">
 
     <!-- Cabecera -->
-    <div class="detail-breadcrumb">
-      <a href="../index.html">~/inicio</a> / <a href="../index.html#projects">proyectos</a> / capsulecorp-server
-    </div>
+    <a class="back" href="../index.html#proyectos">
+      <span lang="es">Volver a proyectos</span><span lang="en">Back to projects</span>
+    </a>
+    <p class="lang-note" lang="en">This project write-up is only available in Spanish.</p>
 
-    <p class="detail-module">// ASO · Administración avanzada de sistemas</p>
+    <p class="detail-module">ASO · Administración avanzada de sistemas</p>
     <h1 class="detail-title">Servidor Linux empresarial</h1>
 
     <div class="detail-meta">
-      <span class="deploy-badge ok">● completado</span>
+      <span class="deploy-badge ok">Completado</span>
       <span class="dtag">Ubuntu Server</span>
       <span class="dtag">Bash</span>
       <span class="dtag">SSH</span>
@@ -63,8 +82,8 @@
     </div>
 
     <!-- Arquitectura -->
-    <section class="detail-section reveal">
-      <h2 data-no="//">Arquitectura del entorno</h2>
+    <section class="detail-section">
+      <h2>Arquitectura del entorno</h2>
       <p>El servidor concentra los servicios de la empresa detrás de un firewall, con los usuarios organizados en tres grupos por rol y una capa de automatización y seguridad por encima.</p>
 
       <div class="arch">
@@ -95,8 +114,8 @@
     </section>
 
     <!-- Objetivos -->
-    <section class="detail-section reveal">
-      <h2 data-no="//">Objetivos</h2>
+    <section class="detail-section">
+      <h2>Objetivos</h2>
       <ul>
         <li>Segmentar el acceso de los usuarios por <strong>roles</strong> (administradores, desarrolladores y soporte).</li>
         <li>Desplegar y configurar los servicios clave: <strong>SSH, Apache2 y MariaDB</strong>.</li>
@@ -106,8 +125,8 @@
     </section>
 
     <!-- 1. Usuarios y ACL -->
-    <section class="detail-section reveal">
-      <h2 data-no="01">Usuarios, grupos y permisos ACL</h2>
+    <section class="detail-section">
+      <h2>Usuarios, grupos y permisos ACL</h2>
       <p>Cada departamento tiene su propio grupo. Los usuarios se crean con su directorio <em>home</em> y su shell, y se asignan al grupo que les corresponde:</p>
 
       <table class="info-table">
@@ -155,8 +174,8 @@
     </section>
 
     <!-- 2. Servicios -->
-    <section class="detail-section reveal">
-      <h2 data-no="02">Servicios del sistema</h2>
+    <section class="detail-section">
+      <h2>Servicios del sistema</h2>
 
       <h3>SSH securizado</h3>
       <p>El servicio SSH se endurece cambiando el puerto por defecto, deshabilitando el acceso de root, limitando los intentos y restringiendo qué usuarios pueden conectarse:</p>
@@ -189,8 +208,8 @@
     </section>
 
     <!-- 3. Automatización -->
-    <section class="detail-section reveal">
-      <h2 data-no="03">Automatización con scripts y cron</h2>
+    <section class="detail-section">
+      <h2>Automatización con scripts y cron</h2>
       <p>Tres scripts en Bash cubren las tareas repetitivas del servidor, todos protegidos para que <strong>solo los administradores</strong> puedan ejecutarlos:</p>
       <ul>
         <li><strong>gestion_usuarios.sh</strong> — menú interactivo para crear, eliminar y listar usuarios, con validación del grupo.</li>
@@ -202,7 +221,7 @@
 
       <div class="code">
         <div class="code-bar"><span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span><span class="code-title">crontab -e</span></div>
-<pre class="code-body"><span class="comment"># Copia de seguridad diaria a las 3:00</span>
+<pre class="code-body"><span class="comment"># Copia de seguridad diaria a las 2:00</span>
 0 2 * * * /usr/local/sbin/backup_sistema.sh
 
 <span class="comment"># Mantenimiento semanal (domingos a las 23:00)</span>
@@ -211,8 +230,8 @@
     </section>
 
     <!-- 4. Hardening -->
-    <section class="detail-section reveal">
-      <h2 data-no="04">Seguridad y hardening</h2>
+    <section class="detail-section">
+      <h2>Seguridad y hardening</h2>
       <p>La capa de seguridad combina varias técnicas: shells deshabilitadas para usuarios de servicio, permisos correctos en la web, auditoría de binarios con SUID y un firewall con política restrictiva.</p>
 
       <div class="code">
@@ -246,7 +265,7 @@
       <div class="code">
         <div class="code-bar"><span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span><span class="code-title">/etc/fail2ban/jail.local</span></div>
 <pre class="code-body"><span class="key">[sshd]</span>
-enable   = true
+enabled  = true
 port     = 2222
 maxretry = 3
 bantime  = 86400
@@ -256,29 +275,35 @@ backend  = systemd</pre>
     </section>
 
     <!-- Retos -->
-    <section class="detail-section reveal">
-      <h2 data-no="//">Retos y aprendizajes</h2>
+    <section class="detail-section">
+      <h2>Retos y aprendizajes</h2>
       <div class="callout">
-        <span class="ico">💡</span>
         <p>Tras cambiar el puerto de SSH a 2222, el servicio no aceptaba conexiones aunque lo reiniciara. La solución fue <strong>reiniciar el servidor</strong> por completo: a veces el cambio de puerto no se aplica solo con <code>systemctl restart ssh</code>. Un recordatorio de comprobar siempre el estado real del servicio antes de dar algo por hecho.</p>
       </div>
     </section>
 
     <!-- Conclusión -->
-    <section class="detail-section reveal">
-      <h2 data-no="//">Conclusión</h2>
+    <section class="detail-section">
+      <h2>Conclusión</h2>
       <p>Un proyecto muy completo que abarca el ciclo de vida de un servidor real: desde la instalación y la gestión de usuarios hasta la automatización y el hardening. Me sirvió para entender por qué la administración de sistemas es tan estricta con los permisos y la seguridad, y es la base sobre la que quiero construir mi perfil DevOps.</p>
     </section>
 
     <!-- Navegación entre proyectos -->
     <div class="detail-foot-nav">
-      <a href="../index.html#projects">← Todos los proyectos</a>
-      <a href="mariadb-capsulecorp.html">mariadb-capsulecorp →</a>
+      <a href="../index.html#proyectos">‹ Todos los proyectos</a>
+      <a href="mariadb-capsulecorp.html">mariadb-capsulecorp ›</a>
     </div>
 
   </main>
 
-  <!-- Script (con guardas, seguro en cualquier página) -->
-  <script src="../js/index.js"></script>
+  <footer class="foot">
+    <p>© 2026 Alberto Mira Rufino</p>
+    <p class="host-info">
+      <span lang="es" data-host-es>Publicada en GitHub Pages y en mi clúster Kubernetes</span>
+      <span lang="en" data-host-en>Published on GitHub Pages and on my Kubernetes cluster</span>
+    </p>
+  </footer>
+
+  <script src="../js/main.js"></script>
 </body>
 </html>

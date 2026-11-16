@@ -7,10 +7,6 @@
   <meta name="description" content="Administrador de sistemas en camino a DevOps. Plataforma autoalojada con Kubernetes, Argo CD, Ansible y copias verificadas." />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
-
   <link rel="stylesheet" href="css/hud.css" />
 </head>
 <body>
@@ -408,6 +404,14 @@
         <!-- campo trampa contra spam (Formspree lo ignora si está vacío) -->
         <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
+        <label class="consent" for="f-consent">
+          <input id="f-consent" name="consentimiento" type="checkbox" value="acepto" required />
+          <span>
+            <span lang="es">Acepto que mis datos se usen solo para responderme. El formulario lo gestiona Formspree. Más información en <a href="privacidad.html">Privacidad</a>.</span>
+            <span lang="en">I agree my data is used only to reply to me. The form is handled by Formspree. More in <a href="privacidad.html">Privacy</a>.</span>
+          </span>
+        </label>
+
         <button class="btn btn-solid" type="submit" id="sendBtn">
           <span lang="es">Enviar mensaje</span><span lang="en">Send message</span>
         </button>
@@ -419,6 +423,7 @@
 
   <footer class="foot">
     <p>© 2026 Alberto Mira Rufino</p>
+    <p><a href="privacidad.html"><span lang="es">Privacidad</span><span lang="en">Privacy</span></a></p>
     <p class="host-info">
       <span lang="es" data-host-es>Publicada en GitHub Pages y en mi clúster Kubernetes</span>
       <span lang="en" data-host-en>Published on GitHub Pages and on my Kubernetes cluster</span>

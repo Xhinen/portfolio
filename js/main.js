@@ -70,6 +70,7 @@ const textos = {
     nombre: 'Escribe tu nombre.',
     email: 'Revisa el email: falta la @ o el dominio.',
     mensaje: 'El mensaje necesita al menos 10 caracteres.',
+    consentimiento: 'Marca la casilla de privacidad para poder enviar el mensaje.',
     enviando: 'Enviando…',
     ok: 'Mensaje enviado. Te respondo en menos de 24 horas.',
     error: 'No se ha podido enviar. Prueba otra vez o escríbeme por LinkedIn.'
@@ -78,6 +79,7 @@ const textos = {
     nombre: 'Enter your name.',
     email: 'Check the email: the @ or the domain is missing.',
     mensaje: 'The message needs at least 10 characters.',
+    consentimiento: 'Tick the privacy box to send the message.',
     enviando: 'Sending…',
     ok: 'Message sent. I will reply within 24 hours.',
     error: 'The message could not be sent. Try again or reach me on LinkedIn.'
@@ -101,7 +103,8 @@ if (form) {
     const campos = [
       { el: form.nombre, clave: 'nombre', valido: form.nombre.value.trim().length >= 2 },
       { el: form.email, clave: 'email', valido: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.value.trim()) },
-      { el: form.mensaje, clave: 'mensaje', valido: form.mensaje.value.trim().length >= 10 }
+      { el: form.mensaje, clave: 'mensaje', valido: form.mensaje.value.trim().length >= 10 },
+      { el: form.consentimiento, clave: 'consentimiento', valido: form.consentimiento.checked }
     ];
 
     let primerError = null;
